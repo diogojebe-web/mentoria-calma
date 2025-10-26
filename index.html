@@ -1,0 +1,1293 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Método C.A.L.M.A. — Consultoria</title>
+<style>
+  :root{
+    --turquoise:#2FD5C7;
+    --turquoise-ink:#005d56;
+    --turquoise-soft:#ECFFFC;
+    --pink:#F4A3B8;
+    --pink-ink:#7c2944;
+    --pink-soft:#FDF1F5;
+    --ink:#111827;
+    --muted:#6B7280;
+    --bg:#ffffff;
+    --bg-soft:#F9FAFB;
+    --grad: linear-gradient(135deg, #FADCE4 0%, #D6F9F6 100%);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:var(--bg);
+  }
+  img{max-width:100%; height:auto; display:block}
+  .container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  /* --- Botões & util --- */
+  .btn{
+    display:inline-block; background:var(--turquoise); color:#003433; 
+    font-weight:700; padding:16px 22px; border-radius:12px; text-decoration:none;
+    box-shadow:0 8px 18px rgba(47,213,199,.25); transition:transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(47,213,199,.35)}
+  .btn-pink{ background:var(--pink); color:#5b1030; box-shadow:0 8px 18px rgba(244,163,184,.25)}
+  .badge{display:inline-block; padding:.22rem .6rem; border-radius:999px; background:#E6FFFB; color:#06635d; font-weight:700; font-size:.78rem}
+  .eyebrow{color:var(--pink); font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:.85rem}
+  .muted{color:var(--muted)}
+  .small{font-size:.9rem}
+  .center{text-align:center}
+  .divider{height:1px; background:#EEF2F7; margin:22px 0}
+
+  /* --- HERO --- */
+  .hero{
+    background:var(--grad);
+    padding:48px 0 28px; border-bottom:1px solid #EEF2F7;
+  }
+  .hero-top{display:flex; align-items:center; gap:14px; margin-bottom:10px}
+  .logo{height:36px;width:auto}
+  h1{font-size:clamp(26px,4.6vw,44px); line-height:1.1; margin:10px 0}
+  .sub{color:#25313b; font-size:clamp(16px,2.6vw,20px); max-width:900px}
+  .hero-grid{display:grid; grid-template-columns:1fr; gap:22px; align-items:center; margin-top:18px}
+  @media(min-width:980px){ .hero-grid{ grid-template-columns:1.15fr .85fr } }
+  .bullets{margin:12px 0 8px; display:grid; gap:10px}
+  .bullet{display:flex; gap:10px; align-items:flex-start; background:#ffffffc9; backdrop-filter:saturate(1.2) blur(2px);
+          border:1px solid #E7EEF5; padding:10px 12px; border-radius:12px}
+  .check{color:#0c6f67; font-weight:900}
+
+  /* --- Vídeo responsivo --- */
+  .video-wrap{
+    border-radius:16px; overflow:hidden; border:1px solid #E7EEF5; background:#fff; box-shadow:0 6px 24px rgba(0,0,0,.06);
+    aspect-ratio:16/9;
+  }
+  .video-wrap iframe{width:100%; height:100%; border:0; display:block}
+
+  /* --- Seções gerais --- */
+  .section{padding:36px 0}
+  .section.alt{background:var(--bg-soft)}
+
+  /* --- Cards de destaque --- */
+  .grid-3{display:grid; grid-template-columns:1fr; gap:16px}
+  @media(min-width:720px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+  .card{background:#fff; border:1px solid #EEF2F7; border-radius:16px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.04)}
+  .card-img{width:100%; aspect-ratio:16/9; object-fit:cover; background:#f0f0f0}
+  .card-body{padding:14px}
+  .kicker{color:#0b7d73; font-weight:700; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase}
+
+  /* --- Pilares --- */
+  .pillars{display:grid; grid-template-columns:1fr; gap:14px}
+  @media(min-width:840px){.pillars{grid-template-columns:repeat(5,1fr)}}
+  .pillar{background:#fff; border:1px solid #EEF2F7; border-radius:14px; padding:14px}
+
+  /* --- Listas --- */
+  .list{display:grid; gap:10px}
+  .li{display:flex; gap:10px}
+  .li::before{content:"•"; color:var(--turquoise); font-weight:900}
+  
+/* --- “Você recebe” (cartões) --- */
+  .receive-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-top:10px;
+  }
+  @media(min-width:760px){
+    .receive-grid{ grid-template-columns:repeat(2,1fr) }
+  }
+  @media(min-width:1080px){
+    .receive-grid{ grid-template-columns:repeat(3,1fr) }
+  }
+  .receive-card{
+    background:#fff;
+    border:1px solid #EEF2F7;
+    border-radius:14px;
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+    padding:14px 14px 14px 12px;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .receive-icon{
+    flex:0 0 34px; height:34px; width:34px;
+    display:grid; place-items:center;
+    border-radius:10px;
+    background:var(--turquoise-soft);
+    color:var(--turquoise-ink);
+    font-weight:900;
+    border:1px solid #dff6f3;
+    margin-top:2px;
+  }
+  .receive-text{ font-size:clamp(15px,2.4vw,17px); line-height:1.5 }
+
+  /* --- COMPARAÇÃO (duas colunas) --- */
+  .compare{
+    display:grid; grid-template-columns:1fr; gap:18px;
+  }
+  @media(min-width:900px){ .compare{ grid-template-columns:1fr 1fr } }
+  .panel{
+    background:#fff; border:2px solid #e7eef5; border-radius:16px; overflow:hidden;
+  }
+  .panel--bad{ background:var(--pink-soft); border-color:#F4A3B8 }
+  .panel--good{ background:var(--turquoise-soft); border-color:#7be9de }
+  .panel-head{
+    padding:18px; text-align:center; font-weight:900; font-size:1.25rem
+  }
+  .panel--bad .panel-head{ color:var(--pink-ink) }
+  .panel--good .panel-head{ color:var(--turquoise-ink) }
+  .panel-body{ padding:16px 18px }
+  .panel-body .li::before{ content:"" } /* sem bolinha duplicada */
+  .panel--bad .panel-body li{ list-style:none; margin:10px 0; padding-left:0 }
+  .panel--good .panel-body li{ list-style:none; margin:10px 0; padding-left:0 }
+  .panel ul{margin:0; padding:0}
+
+  /* --- CTA com leve degradê --- */
+  .cta-block{background:linear-gradient(180deg, #fff 0%, #FDF7FA 100%); border:1px solid #FAD9E4; padding:22px; border-radius:16px}
+
+/* --- FAQ acordeão (versão revisada e responsiva) --- */
+.faq {
+  border: 1px solid #EEF2F7;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Cada item do acordeão */
+.faq-item {
+  border-top: 1px solid #EEF2F7;
+}
+
+.faq-item:first-child {
+  border-top: 0;
+}
+
+/* Pergunta (bloco clicável) */
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 0;
+  padding: 20px 24px;
+  font-size: clamp(18px, 2.5vw, 21px); /* 🔥 Tamanho da fonte aumentado */
+  font-weight: 700;
+  color: #0b2239;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* Efeito ao passar o mouse */
+.faq-q:hover {
+  background: #f8fdfc;
+  color: #09204a;
+}
+
+/* Resposta (texto que aparece ao abrir) */
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 24px;
+  color: #444;
+  font-size: clamp(16px, 2.2vw, 18px);
+  line-height: 1.6;
+  background: #f9fbfc;
+}
+
+/* Quando o item é aberto */
+.faq-item.open .faq-a {
+  max-height: 280px; /* pode ajustar se as respostas forem mais longas */
+  padding: 0 24px 18px 24px;
+}
+
+/* Ícone de seta animado */
+.faq-icon {
+  transition: transform 0.25s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+}
+  /* --- “Faixas” sutis com gradiente para quebrar o branco --- */
+  .band{ background:var(--grad); padding:8px 0; border-top:1px solid #eef2f7; border-bottom:1px solid #eef2f7 }
+/* --- BÔNUS (cards) --- */
+/* preços dos bônus dentro da OFERTA */
+.bonus-price{display:flex;gap:10px;align-items:center;margin-top:8px}
+.price-original{color:#94A3B8;text-decoration:line-through;font-weight:700}
+.price-free{background:var(--pink-soft);color:var(--pink-ink);font-weight:800;
+            padding:2px 10px;border-radius:999px;border:1px solid #FAD9E4}
+.bonus-chip{display:inline-block;font-size:.85rem}
+  .bonus-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:860px){.bonus-grid{grid-template-columns:1fr 1fr}}
+  .bonus-card{
+    position:relative;background:#fff;border:1px solid #F8C7D6;border-radius:16px;padding:18px;
+    box-shadow:0 4px 14px rgba(0,0,0,.04);overflow:hidden
+  }
+  /* “mancha” suave no canto superior direito */
+  .bonus-card::after{
+    content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(244,163,184,.25), rgba(244,163,184,0) 70%);
+    pointer-events:none
+  }
+  .bonus-chip{
+    display:inline-block;border-radius:999px;padding:.28rem .6rem;font-weight:800;font-size:.8rem;
+    background:#FFF0F5;border:1px solid #F8C7D6;color:#b3124a
+  }
+  .bonus-card h3{margin:.6rem 0 0;font-size:clamp(18px,2.6vw,22px)}
+  .bonus-list{margin-top:10px;display:grid;gap:10px}
+  .bonus-li{display:flex;gap:10px;align-items:flex-start}
+  .bonus-li::before{content:"✅";}
+/* --- OFERTA (card) --- */
+.offer-card{
+  background: linear-gradient(180deg, #fff 0%, var(--pink-soft) 100%);
+  border: 1px solid #FAD9E4;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+.offer-head{
+  display:flex; flex-direction:column; gap:6px; margin-bottom:12px;
+}
+.offer-head .title{
+  font-size: clamp(22px, 3.2vw, 30px);
+  line-height:1.2; margin:0;
+}
+.offer-head .subtitle{ color: var(--muted); margin:0 }
+
+.offer-grid{
+  display:grid; grid-template-columns:1fr; gap:18px; align-items:start;
+}
+@media(min-width:900px){
+  .offer-grid{ grid-template-columns:1.3fr .9fr }
+}
+
+.offer-features{
+  background:#fff; border:1px solid #F5E3EA; border-radius:16px; padding:16px;
+}
+.offer-features .item{
+  display:flex; gap:10px; align-items:flex-start;
+  background:#fff; border:1px solid #F1F5F9; border-radius:12px;
+  padding:10px 12px; margin-bottom:10px;
+}
+.offer-features .item:last-child{ margin-bottom:0 }
+.offer-features .check{ font-weight:900; color:var(--turquoise-ink) }
+
+.offer-pricebox{
+  background:#fff; border:1px solid #FAD9E4; border-radius:16px; padding:18px;
+  box-shadow: 0 6px 18px rgba(244,163,184,.18);
+}
+.offer-pricebox .price{
+  font-weight:800; margin-bottom:2px; color:#191b1f;
+  font-size: clamp(26px, 4vw, 34px);
+}
+.offer-pricebox .price .small{
+  font-weight:600; font-size:.9rem; color:#c03f6b;
+}
+.offer-pricebox .note{ color:var(--muted); margin:6px 0 14px }
+.offer-pricebox .btn{ width:100%; text-align:center }
+.offer-pricebox .secure{ color:#60708a; font-size:.85rem; margin-top:10px; text-align:center }
+/* --- Autor (Quem é Diogo Jebe) --- */
+.about{display:grid; grid-template-columns:1fr; gap:18px; align-items:center}
+@media(min-width:900px){.about{grid-template-columns:1.1fr .9fr}}
+.about-img{width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:16px; background:#e9eef3}
+
+/* --- Garantia com selo --- */
+.guarantee{display:grid; grid-template-columns:1fr; gap:18px; align-items:center}
+@media(min-width:900px){.guarantee{grid-template-columns:1.2fr .8fr}}
+.seal-wrap{
+  background:var(--pink-soft);
+  border:1px solid #FAD9E4;
+  border-radius:16px;
+  padding:16px;
+  display:flex; align-items:center; justify-content:center;
+}
+.seal{width:100%; max-width:360px; height:auto; display:block}
+/* --- DADOS / estatísticas --- */
+.data-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  margin-top:22px;
+}
+@media(min-width:720px){.data-grid{grid-template-columns:1fr 1fr}}
+.data-card{
+  background:#fff;
+  border:1px solid #E7EEF5;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,.04);
+  text-align:left;
+}
+.data-number{
+  font-size:clamp(36px,5vw,54px);
+  font-weight:900;
+  color:var(--turquoise);
+  margin-bottom:6px;
+}
+.data-card p{
+  margin:0;
+  font-size:1rem;
+  line-height:1.4;
+}
+.data-source{
+  display:block;
+  margin-top:8px;
+  font-size:.85rem;
+  color:#6b7280;
+  font-style:italic;
+}
+/* --- PILARES (imagem + texto lado a lado) --- */
+.pillars2 { padding: 36px 0; }
+.pillars2 h2 { font-size:clamp(22px,3.5vw,32px); margin:0 0 14px; }
+.pillar-row{
+  display:grid; grid-template-columns:1fr; gap:20px; align-items:center;
+  margin:26px 0; 
+}
+@media(min-width:980px){
+  .pillar-row{ grid-template-columns:1.05fr .95fr }
+  .pillar-row.reverse{ grid-template-columns:.95fr 1.05fr }
+}
+.pillar-img{
+  width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:16px;
+  background:#f2f6f8; border:1px solid #E7EEF5; box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+.pillar-text h3{ margin:0 0 6px; font-size:clamp(18px,2.6vw,24px) }
+.pillar-text p{ margin:0; color:var(--muted) }
+.pillars-note{ color:var(--muted); margin-top:6px; font-size:.92rem }
+
+/* bolinhas da listagem interna (se quiser usar) */
+.pillar-list{ display:grid; gap:8px; margin-top:10px }
+.pillar-li{ display:flex; gap:10px; align-items:flex-start }
+.pillar-li::before{ content:"•"; color:var(--turquoise); font-weight:900 }
+/* --- Blocos genéricos (cards responsivos) --- */
+.blocks{
+  display:grid; grid-template-columns:1fr; gap:14px;
+}
+@media(min-width:760px){
+  .blocks{ grid-template-columns:repeat(2,1fr) }
+}
+@media(min-width:1040px){
+  .blocks{ grid-template-columns:repeat(3,1fr) }
+}
+.block{
+  background:#fff; border:1px solid #E7EEF5; border-radius:14px;
+  padding:14px 16px; box-shadow:0 4px 14px rgba(0,0,0,.04);
+  display:flex; gap:10px; align-items:flex-start;
+}
+.block .emoji{
+  font-size:1.35rem; line-height:1; margin-top:2px;
+}
+.block .t{
+  margin:0; color:var(--ink);
+}
+.block .m{
+  margin:.2rem 0 0; color:var(--muted); font-size:.95rem;
+}
+
+/* variação com borda colorida (opcional) */
+.block.good{ border-color:#7be9de; background:var(--turquoise-soft) }
+.block.bad{ border-color:#f8c4d2; background:var(--pink-soft) }
+
+/* cabeçalho de seção com subtítulo */
+.section h2 + .subtle{
+  color:var(--muted); margin:-6px 0 14px; font-size:.98rem;
+}
+/* --- ROBÔ C.A.L.M.A. (sessão destaque) --- */
+.robot {
+  background: linear-gradient(135deg, #FDF1F5 0%, #ECFFFC 100%);
+  border-top: 1px solid #eef2f7;
+  border-bottom: 1px solid #eef2f7;
+  padding: 48px 0;
+}
+
+.robot .eyebrow {
+  color: var(--turquoise-ink);
+  background: #E6FFFB;
+  padding: .22rem .6rem;
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: .78rem;
+  display: inline-block;
+}
+
+.robot h2 {
+  margin: 10px 0 6px;
+  font-size: clamp(26px, 4.2vw, 40px);
+  line-height: 1.15;
+}
+
+.robot-sub {
+  color: var(--muted);
+  font-size: clamp(15px, 2.6vw, 18px);
+  max-width: 860px;
+}
+
+.robot-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: center;
+  margin-top: 18px;
+}
+@media (min-width: 980px){
+  .robot-grid { grid-template-columns: 1.05fr .95fr; }
+}
+
+.robot-card {
+  background:#fff;
+  border:1px solid #EEF2F7;
+  border-radius:16px;
+  box-shadow:0 6px 24px rgba(0,0,0,.06);
+  padding:18px;
+}
+
+.robot-list { display:grid; gap:10px; margin:10px 0 0; }
+.robot-li { display:flex; gap:10px; align-items:flex-start; }
+.robot-li::before { content:"✓"; color:#0c6f67; font-weight:900; margin-top:2px; }
+
+.robot-quote {
+  background: #fff;
+  border-left:4px solid var(--pink);
+  border:1px solid #FAD9E4;
+  border-radius:12px;
+  padding:12px 14px;
+  color:#25313b;
+  margin-top:12px;
+  font-size: .98rem;
+}
+
+.robot-media {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border:1px solid #E7EEF5;
+  background: radial-gradient(1200px 400px at 80% -10%, rgba(244,163,184,.35) 0%, transparent 60%),
+              radial-gradient(1000px 360px at -20% 110%, rgba(47,213,199,.3) 0%, transparent 60%), #fff;
+  min-height: 260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.robot-media img {
+  max-width: 88%;
+  height: auto;
+  display:block;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,.12));
+}
+
+.robot-cta { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+.robot-cta .btn { padding:14px 18px; }
+/* --- Rodapé --- */
+.footer {
+  background: linear-gradient(180deg, #FDF7FA 0%, #F8FEFC 100%);
+  border-top: 1px solid #E7EEF5;
+  padding: 28px 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #4B4B4B;
+}
+
+.footer a {
+  color: var(--turquoise-ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-links {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #555;
+}
+</style>
+</head>
+<body>
+
+  <!-- HERO COM DEGRADÊ -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-top">
+        <span class="eyebrow">Método C.A.L.M.A.</span>
+        <img class="logo" src="logo-calma.png" alt="Método C.A.L.M.A." />
+      </div>
+
+      <div class="hero-grid">
+        <!-- Coluna de texto -->
+        <div>
+          <h1>
+            Emagreça de forma definitiva reprogramando suas emoções. <br/>
+            <span style="color:var(--pink)">Sem dietas restritivas ou efeito sanfona.</span>
+          </h1>
+
+          <p class="sub">
+            Descubra o Método C.A.L.M.A., uma consultoria completa e personalizada que transforma corpo, mente e emoções — com suporte psicológico,
+            plano de alimentação leve, treinos eficazes e um robô de inteligência artificial criado para te acompanhar de verdade.
+          </p>
+
+          <p class="muted" style="margin-top:14px;font-weight:700">Neste vídeo você vai aprender:</p>
+          <div class="bullets">
+            <div class="bullet"><strong class="check">✓</strong> Por que você ainda se sabota, mesmo querendo muito emagrecer</div>
+            <div class="bullet"><strong class="check">✓</strong> O verdadeiro motivo do efeito sanfona e como se livrar dele de uma vez por todas</div>
+            <div class="bullet"><strong class="check">✓</strong> Como mulheres comuns estão vencendo a compulsão alimentar e recuperando o controle</div>
+            <div class="bullet"><strong class="check">✓</strong> O método que une psicologia, alimentação e movimento para resultados reais e sustentáveis</div>
+            <div class="bullet"><strong class="check">✓</strong> O passo a passo que te faz emagrecer sem abrir mão da sua vida social</div>
+          </div>
+
+
+        <!-- Coluna do vídeo -->
+        <div>
+          <div class="video-wrap">
+            <!-- TROQUE o src quando tiver o link do player (YouTube, Cloudflare, Bunny etc.) -->
+            <iframe
+              src=""
+              title="Vídeo de apresentação — Método C.A.L.M.A."
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+          <div class="hero-cta" style="margin:16px 0 0">
+                  <a href="#cta-final" class="btn">🚀 Comece Agora Sua Transformação</a>
+                  <span class="badge">Lugares limitados</span>
+                </div>
+              </div>
+      
+    </div>
+  </header>
+
+  <!-- FAIXA SUTIL DEGRADÊ -->
+  <div class="band"></div>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-3">
+        <div class="card">
+          <img class="card-img" src="treinos.jpg" alt="Treinos que aceleram o metabolismo" />
+          <div class="card-body">
+            <div class="kicker">Treinos que aceleram o metabolismo</div>
+            <p class="muted">Treinos curtos, inteligentes e eficientes — em casa ou na academia.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img" src="alimentacao.jpg" alt="Alimentação sem terrorismo" />
+          <div class="card-body">
+            <div class="kicker">Alimentação sem terrorismo nutricional</div>
+            <p class="muted">Comer melhor, com prazer e equilíbrio. Sem neura, sem culpa.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img" src="psicologia.jpg" alt="Sessões com psicóloga" />
+          <div class="card-body">
+            <div class="kicker">Sessões com psicóloga</div>
+            <p class="muted">Apoio emocional real para vencer ansiedade, compulsão e autossabotagem.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- PILARES -->
+  <section class="pillars2 alt">
+    <div class="container">
+      <h2>Os 5 Pilares do Método C.A.L.M.A.</h2>
+      <p class="muted">Não há segredos para o sucesso.</p>
+  
+      <!-- 1. Consciência Emocional -->
+      <div class="pillar-row">
+        <img class="pillar-img" alt="Consciência Emocional"
+             src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 750'><defs><linearGradient id='g1' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23FADCE4'/><stop offset='100%' stop-color='%23D6F9F6'/></linearGradient></defs><rect width='1200' height='750' rx='28' fill='url(%23g1)'/><circle cx='280' cy='260' r='120' fill='%23ffffff26'/><circle cx='900' cy='520' r='160' fill='%23ffffff26'/><circle cx='620' cy='360' r='80' fill='%23ffffff50'/></svg>">
+        <div class="pillar-text">
+          <h3>Consciência Emocional</h3>
+          <p>Rompe a autossabotagem, regula ansiedade e fortalece autoestima.</p>
+          <div class="pillars-note small">Base para decisões mais calmas e consistentes.</div>
+        </div>
+      </div>
+  
+      <!-- 2. Alimentação que Nutre -->
+      <div class="pillar-row reverse">
+        <div class="pillar-text">
+          <h3>Alimentação que Nutre</h3>
+          <p>Plano alimentar sem terrorismo nutricional, focado em bem-estar real.</p>
+          <div class="pillars-note small">Nutrição com prazer e equilíbrio — sem culpa.</div>
+        </div>
+        <img class="pillar-img" alt="Alimentação que Nutre"
+             src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 750'><defs><linearGradient id='g2' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23D6F9F6'/><stop offset='100%' stop-color='%23FADCE4'/></linearGradient></defs><rect width='1200' height='750' rx='28' fill='url(%23g2)'/><rect x='160' y='160' width='260' height='170' rx='20' fill='%23ffffff3a'/><rect x='820' y='420' width='220' height='160' rx='20' fill='%23ffffff3a'/><circle cx='600' cy='380' r='90' fill='%23ffffff55'/></svg>">
+      </div>
+  
+      <!-- 3. Liberdade em Movimento -->
+      <div class="pillar-row">
+        <img class="pillar-img" alt="Liberdade em Movimento"
+             src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 750'><defs><linearGradient id='g3' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23FADCE4'/><stop offset='100%' stop-color='%23D6F9F6'/></linearGradient></defs><rect width='1200' height='750' rx='28' fill='url(%23g3)'/><path d='M80,640 C220,560 360,520 520,560 C700,600 860,520 1120,440' fill='none' stroke='%23ffffff66' stroke-width='28' stroke-linecap='round'/></svg>">
+        <div class="pillar-text">
+          <h3>Liberdade em Movimento</h3>
+          <p>Treinos curtos e inteligentes para acelerar o metabolismo com prazer.</p>
+          <div class="pillars-note small">Funciona em casa ou na academia, para rotina corrida.</div>
+        </div>
+      </div>
+  
+      <!-- 4. Mentalidade Estável -->
+      <div class="pillar-row reverse">
+        <div class="pillar-text">
+          <h3>Mentalidade Estável</h3>
+          <p>Cria consistência emocional e foco mesmo na correria.</p>
+          <div class="pillars-note small">Ferramentas práticas para manter constância.</div>
+        </div>
+        <img class="pillar-img" alt="Mentalidade Estável"
+             src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 750'><defs><linearGradient id='g4' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23D6F9F6'/><stop offset='100%' stop-color='%23FADCE4'/></linearGradient></defs><rect width='1200' height='750' rx='28' fill='url(%23g4)'/><rect x='240' y='460' width='720' height='32' rx='16' fill='%23ffffff66'/><rect x='240' y='380' width='510' height='32' rx='16' fill='%23ffffff66'/><rect x='240' y='300' width='620' height='32' rx='16' fill='%23ffffff66'/></svg>">
+      </div>
+  
+      <!-- 5. Autossustentabilidade -->
+      <div class="pillar-row">
+        <img class="pillar-img" alt="Autossustentabilidade"
+             src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 750'><defs><linearGradient id='g5' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23FADCE4'/><stop offset='100%' stop-color='%23D6F9F6'/></linearGradient></defs><rect width='1200' height='750' rx='28' fill='url(%23g5)'/><path d='M160,560 L1040,200' stroke='%23ffffff55' stroke-width='22' stroke-linecap='round'/><circle cx='1040' cy='200' r='18' fill='%23ffffff'/></svg>">
+        <div class="pillar-text">
+          <h3>Autossustentabilidade</h3>
+          <p>Consolida o resultado com leveza e nova identidade.</p>
+          <div class="pillars-note small">Para manter o que você conquistou sem sofrimento.</div>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+<!-- PRA QUEM É -->
+  <section class="section">
+    <div class="container">
+      <h2>💡 Esse Método Foi Feito Para Você, Que…</h2>
+      <p class="subtle">Veja se você se identifica com alguns destes pontos:</p>
+  
+      <div class="blocks">
+        <div class="block"><div class="emoji">🔁</div><div>
+          <p class="t"><strong>Já tentou de tudo</strong> e sempre volta ao ponto de partida</p>
+        </div></div>
+  
+        <div class="block"><div class="emoji">😥</div><div>
+          <p class="t"><strong>Come por ansiedade</strong> e sente culpa depois</p>
+        </div></div>
+  
+        <div class="block"><div class="emoji">⏰</div><div>
+          <p class="t"><strong>Sabe o que precisa fazer</strong>, mas não consegue manter a rotina</p>
+        </div></div>
+  
+        <div class="block"><div class="emoji">🍽️</div><div>
+          <p class="t"><strong>Quer emagrecer com prazer</strong>, sem abrir mão da vida social</p>
+        </div></div>
+  
+        <div class="block"><div class="emoji">🙅‍♀️</div><div>
+          <p class="t"><strong>Cansou de dietas restritivas</strong> que só geram sofrimento</p>
+        </div></div>
+  
+        <div class="block"><div class="emoji">🪞</div><div>
+          <p class="t"><strong>Quer voltar a gostar do que vê</strong> no espelho</p>
+        </div></div>
+  
+        <div class="block"><div class="emoji">🤝</div><div>
+          <p class="t"><strong>Busca acolhimento</strong> e acompanhamento emocional de verdade</p>
+        </div></div>
+  
+        <div class="block"><div class="emoji">🎯</div><div>
+          <p class="t"><strong>Quer vencer a autossabotagem</strong> e ter foco com leveza</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE RECEBE -->
+  <section class="section alt">
+    <div class="container">
+      <h2>📚 O Que Está Por Trás do Método Que Está Mudando Vidas</h2>
+      <p class="muted">O Método C.A.L.M.A. é uma consultoria online individualizada que atua de forma integrada na transformação física e emocional da mulher. Você recebe:</p>
+<div class="receive-grid">
+        <div class="receive-card">
+          <div class="receive-icon">✓</div>
+          <div class="receive-text">
+            ✅ Sessão inicial por vídeo para avaliação completa e planejamento estratégico
+          </div>
+        </div>
+      
+        <div class="receive-card">
+          <div class="receive-icon">✓</div>
+          <div class="receive-text">
+            ✅ Prescrição de exercícios com acompanhamento mensal e ajustes personalizados semanais. Tudo através de vídeos por um aplicativo exclusivo
+          </div>
+        </div>
+      
+        <div class="receive-card">
+          <div class="receive-icon">✓</div>
+          <div class="receive-text">
+            ✅ Orientações alimentares simples e equilibradas, para quem quer se alimentar bem sem extremismos, com foco prazer de comer bem
+          </div>
+        </div>
+      
+        <div class="receive-card">
+          <div class="receive-icon">✓</div>
+          <div class="receive-text">
+            ✅ Sessões mensais com psicóloga especializada em compulsão alimentar, ansiedade e saúde mental femina como um todo
+          </div>
+        </div>
+      
+        <div class="receive-card">
+          <div class="receive-icon">✓</div>
+          <div class="receive-text">
+            ✅ Suporte emocional e técnico para lidar com recaídas, autossabotagem e manter o foco
+          </div>
+        </div>
+      
+        <div class="receive-card">
+          <div class="receive-icon">✓</div>
+          <div class="receive-text">
+            ✅ Bônus especiais que aceleram e sustentam seus resultados
+          </div>
+        </div>
+      </div>
+      <p class="muted">Tudo isso no conforto da sua casa, com suporte real e acompanhamento contínuo.</p>
+    </div>
+  </section>
+<!-- BÔNUS -->
+  <section class="section">
+    <div class="container">
+      <h2>🎁 Bônus Exclusivos</h2>
+  
+<div class="bonus-grid">
+      
+        <!-- BÔNUS #1 -->
+        <div class="bonus-card">
+          <div class="bonus-badge">🎁 BÔNUS #1</div>
+          <h3>E-Book de Receitas</h3>
+          <p class="muted">Receitas simples, gostosas e práticas para o dia a dia, sem terrorismo nutricional.</p>
+          <ul class="list" style="margin-top:8px">
+            <li>✅ Opções doces e salgadas fáceis de preparar</li>
+            <li>✅ Lista de compras e substituições inteligentes</li>
+            <li>✅ Versões leves das receitas “queridinhas”</li>
+          </ul>
+        </div>
+      
+        <!-- BÔNUS #2 -->
+        <div class="bonus-card">
+          <div class="bonus-badge">🎁 BÔNUS #2</div>
+          <h3>Aplicativo Gerador de Lanches Saudáveis</h3>
+          <p class="muted">Ideias rápidas e equilibradas para quando a fome apertar — sem sair do plano.</p>
+          <ul class="list" style="margin-top:8px">
+            <li>✅ Mais de 50 opções em cada categoria</li>
+            <li>✅ Escolha entre doce, salgado ou lanche rápido</li>
+            <li>✅ Opções para levar ou fazer em casa</li>
+          </ul>
+        </div>
+      
+        <!-- BÔNUS #3 -->
+        <div class="bonus-card">
+          <div class="bonus-badge">🎁 BÔNUS #3</div>
+          <h3>Aplicativo Gerador de Treinos Curtos</h3>
+          <p class="muted">Treinos inteligentes de 5–30 minutos para os momentos de saída da rotina, viagens, etc.</p>
+          <ul class="list" style="margin-top:8px">
+            <li>✅ Sem equipamentos, para serem feitos em casa ou no hotel</li>
+            <li>✅ Vídeos e instruções passo a passo</li>
+            <li>✅ Foco em acelerar o metabolismo</li>
+          </ul>
+        </div>
+      
+        <!-- BÔNUS #4 -->
+        <div class="bonus-card">
+          <div class="bonus-badge">🎁 BÔNUS #4</div>
+          <h3>Aplicativo “Qual Seu Nível de Compulsão”</h3>
+          <p class="muted">Autoavaliação guiada para clareza e plano de ação prático.</p>
+          <ul class="list" style="margin-top:8px">
+            <li>✅ Questionário rápido e validado</li>
+            <li>✅ Relatório com gatilhos e pontos de atenção</li>
+            <li>✅ Recomendações iniciais para o seu momento</li>
+          </ul>
+        </div>
+      
+        <!-- BÔNUS #5 (um dos mais importantes) -->
+        <div class="bonus-card">
+          <div class="bonus-badge">🎁 BÔNUS #5</div>
+          <h3>E-book - Manual do Emagrecimento Sustentável</h3>
+          <p class="muted">Este não é um simples e-book com “dicas genéricas”.
+          É um livro completo. Uma enciclopédia prática do emagrecimento feminino.</p>
+          <ul class="list" style="margin-top:8px">
+            <li>✅ Um guia de A a Z sobre emagrecimento</li>
+            <li>✅ Cheio de exercícios, estratégias, checklists e reflexões práticas</li>
+            <li>✅ Tão completo que, com ele, você já conseguiria iniciar sua jornada de transformação</li>
+          </ul>
+        </div>
+      
+        <!-- BÔNUS #6 (o mais importante) -->
+        <div class="bonus-card">
+          <div class="bonus-badge">🎁 BÔNUS #6</div>
+          <h3>Robô de Inteligência Artificial Treinado no Método C.A.L.M.A. - (Bônus por tempo limitado)</h3>
+          <p class="muted">Não é um chatbot genérico. É um agente inteligente, treinado por mim e pela equipe com base no conteúdo, linguagem e filosofia do método.</p>
+          <ul class="list" style="margin-top:8px">
+            <li>✅ Suporte emocional e motivacional diário</li>
+            <li>✅ Respostas imediatas sobre alimentação, treino e emoções</li>
+            <li>✅ Tira-dúvidas sobre cada fase do método</li>
+            <li>✅ Orientações personalizadas conforme seu momento</li>
+            <li>✅ Ajuda prática para vencer recaídas e sabotagens</li>
+          </ul>
+        </div>
+      
+      </div> <!-- fecha .bonus-grid -->
+    </div>
+  </section>
+
+  <!-- COMPARAÇÃO (ordem invertida) -->
+  <section class="section" style="background:linear-gradient(180deg,#fff 0%, #F7FFFE 100%);">
+    <div class="container">
+      <h2>⚖️ O Que o C.A.L.M.A. Tem Que Outras Soluções Não Tem</h2>
+
+      <div class="compare" style="margin-top:14px">
+        <!-- Sem o método -->
+        <div class="panel panel--bad">
+          <div class="panel-head">❌ Sem o Método C.A.L.M.A.</div>
+          <div class="panel-body">
+            <ul>
+              <li>🙈 Ignora totalmente o lado emocional do emagrecimento</li>
+              <li>😓 Sem nenhum tipo de apoio psicológico</li>
+              <li>🥦 Dietas restritivas e difíceis de seguir</li>
+              <li>🏃‍♂️ Exercícios genéricos, cansativos e desmotivadores</li>
+              <li>📄 PDFs soltos ou vídeos avulsos da internet</li>
+              <li>🔒 Plano engessado e sem personalização</li>
+              <li>🚫 Falta de contato real ou grupos tóxicos</li>
+              <li>❔ Nenhuma tecnologia para te guiar ou motivar</li>
+              <li>💢 Pressão por disciplina e culpa por “falhar”</li>
+              <li>🎢 Efeito sanfona, culpa e frustração constante</li>
+              <li>🧍‍♀️ Só foco no corpo, sem cuidar da mente ou autoestima</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Com o método -->
+        <div class="panel panel--good">
+          <div class="panel-head">✅ Com o Método C.A.L.M.A.</div>
+          <div class="panel-body">
+            <ul>
+              <li>🧠 Atua nas emoções, ansiedade e compulsão alimentar</li>
+              <li>👩‍⚕️ Acompanhamento com psicóloga especializada</li>
+              <li>🍽️ Alimentação leve, realista e prazerosa</li>
+              <li>🏋️‍♀️ Treinos curtos, eficazes e feitos para sua rotina</li>
+              <li>📲 App exclusivo com vídeos e instruções simples</li>
+              <li>🧭 Planejamento ajustado todo mês com você</li>
+              <li>💌 Suporte contínuo por e-mail + grupo de apoio</li>
+              <li>🤖 Robô com IA treinado no método para te ajudar todos os dias</li>
+              <li>💞 Estímulo à autocompaixão, foco e clareza emocional</li>
+              <li>💪 Resultados sustentáveis e sensação de liberdade</li>
+              <li>👑 Transformação emocional, física e mental verdadeira</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- DORES & DESEJOS -->
+  <section class="section">
+    <div class="container">
+      <h2>💭 Você Vai Se Identificar Com Isso…</h2>
+      <p class="subtle">Dores comuns que chegam até nós — e os desejos por trás delas.</p>
+  
+      <!-- DORES -->
+      <div class="blocks" style="margin-top:10px">
+        <div class="block bad"><div class="emoji">📉</div><div>
+          <p class="t"><strong>Ciclo da segunda-feira</strong>: começa com tudo e desiste no meio da semana</p>
+          <p class="m">Falta um método que segure você emocionalmente.</p>
+        </div></div>
+  
+        <div class="block bad"><div class="emoji">🍫</div><div>
+          <p class="t"><strong>Comer por ansiedade</strong> e depois se culpar</p>
+          <p class="m">Sem trabalhar emoções, a comida vira válvula de escape.</p>
+        </div></div>
+  
+        <div class="block bad"><div class="emoji">🧩</div><div>
+          <p class="t"><strong>Dieta e treino isolados</strong> sem resultado duradouro</p>
+          <p class="m">Falta integrar mente, alimentação e movimento.</p>
+        </div></div>
+      </div>
+  
+      <!-- DESEJOS -->
+      <h3 style="margin:22px 0 10px">✨ Agora, imagine…</h3>
+      <div class="blocks">
+        <div class="block good"><div class="emoji">🪞</div><div>
+          <p class="t"><strong>Olhar no espelho</strong> e se sentir bem com o que vê</p>
+        </div></div>
+  
+        <div class="block good"><div class="emoji">🍽️</div><div>
+          <p class="t"><strong>Comer sem culpa</strong>, com prazer e equilíbrio</p>
+        </div></div>
+  
+        <div class="block good"><div class="emoji">⚡</div><div>
+          <p class="t"><strong>Ter energia e leveza</strong> para curtir a vida</p>
+        </div></div>
+  
+        <div class="block good"><div class="emoji">👗</div><div>
+          <p class="t"><strong>Se vestir como quiser</strong>, sem se esconder</p>
+        </div></div>
+  
+        <div class="block good"><div class="emoji">🏆</div><div>
+          <p class="t"><strong>Sentir orgulho</strong> por ter vencido a si mesma</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+<!-- OFERTA (bloco único com lista + preço/CTA) -->
+<section class="section alt" id="oferta">
+  <div class="container">
+    <div class="offer-card">
+      <div class="offer-head">
+        <h2 class="title">🎁 Tudo o Que Você Recebe ao Entrar no C.A.L.M.A.</h2>
+        <p class="subtitle">Acompanhamento real, plano claro e suporte para você conseguir, de uma vez por todas, emagrecer e finalmente não voltar a engordar.</p>
+      </div>
+
+      <div class="offer-grid">
+        <!-- LISTA (somente o que não é bônus) -->
+        <div class="offer-features">
+          <div class="item"><strong class="check">•</strong> Avaliação e acompanhamento inicial por vídeo</div>
+          <div class="item"><strong class="check">•</strong> Treinos mensais com ajustes semanais</div>
+          <div class="item"><strong class="check">•</strong> Alimentação funcional sem neura</div>
+          <div class="item"><strong class="check">•</strong> Sessão mensal com psicóloga</div>
+          <div class="item"><strong class="check">•</strong> App exclusivo com os treinos em vídeos</div>
+          <div class="item"><strong class="check">•</strong> Suporte por e-mail</div>
+          <div class="item"><strong class="check">•</strong> Acesso à comunidade no Telegram</div>
+
+          <!-- BÔNUS (com preço riscado → GRÁTIS) -->
+          <h3 style="margin:18px 0 8px">Bônus incluídos</h3>
+
+          <div class="bonus-grid">
+            <!-- Bônus 1 -->
+            <div class="bonus-card">
+              <div class="bonus-title">Bônus 1: E-Book de receitas</div>
+
+              <div class="bonus-price">
+                <span class="price-original">R$ 47</span>
+                <span class="price-free bonus-chip">GRÁTIS (R$ 0)</span>
+              </div>
+            </div>
+
+            <!-- Bônus 2 -->
+            <div class="bonus-card">
+              <div class="bonus-title">Bônus 2: Aplicativo Gerador de Lanches saudáveis</div>
+
+              <div class="bonus-price">
+                <span class="price-original">R$ 67</span>
+                <span class="price-free bonus-chip">GRÁTIS (R$ 0)</span>
+              </div>
+            </div>
+
+            <!-- Bônus 3 -->
+            <div class="bonus-card">
+              <div class="bonus-title">Bônus 3: Aplicativo gerador de treinos curtos</div>
+
+              <div class="bonus-price">
+                <span class="price-original">R$ 147</span>
+                <span class="price-free bonus-chip">GRÁTIS (R$ 0)</span>
+              </div>
+            </div>
+
+            <!-- Bônus 4 -->
+            <div class="bonus-card">
+              <div class="bonus-title">Bônus 4: Aplicativo “Qual seu nível de compulsão”</div>
+
+              <div class="bonus-price">
+                <span class="price-original">R$ 47</span>
+                <span class="price-free bonus-chip">GRÁTIS (R$ 0)</span>
+              </div>
+            </div>
+
+            <!-- Bônus 5 -->
+            <div class="bonus-card">
+              <div class="bonus-title">Bônus 5: Ebook Manual do Emagrecimento Sustentável</div>
+
+              <div class="bonus-price">
+                <span class="price-original">R$ 127</span>
+                <span class="price-free bonus-chip">GRÁTIS (R$ 0)</span>
+              </div>
+            </div>
+
+            <!-- Bônus 6 -->
+            <div class="bonus-card">
+              <div class="bonus-title">Bônus 6: Robô C.A.L.M.A.</div>
+
+              <div class="bonus-price">
+                <span class="price-original">R$ 97/mês</span>
+                <span class="price-free bonus-chip">GRÁTIS (R$ 0)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PREÇO / CTA -->
+        <div class="offer-pricebox" id="cta-final">
+          <div class="price">R$247 <span class="small">(promoção — antes R$447)</span></div>
+          <p class="note">Vagas limitadas para acompanhamento personalizado.</p>
+          <a href="#" class="btn btn-pink">✅ Quero entrar no Método C.A.L.M.A.</a>
+          <div class="secure">Pagamento 100% seguro · Cancelamento simples</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROBÔ C.A.L.M.A. — sessão destaque -->
+<section class="section robot" id="robo-calma">
+  <div class="container">
+    <span class="eyebrow">Precisamos falar sobre o Robô C.A.L.M.A.</span>
+    <h2>🤖 Seu Robô de Inteligência Artificial Treinado no Método C.A.L.M.A.</h2>
+    <p class="robot-sub">
+      Meses de pesquisa, curadoria e treinamento para criar um agente inteligente que entende
+      absolutamente tudo sobre <strong>emagrecimento sustentável</strong>, <strong>saúde emocional</strong> e <strong>todas as etapas do método</strong>.
+      É como ter um especialista 24/7 para tirar dúvidas, te orientar e manter o foco — em tudo! Só o acesso ao robô vai ser vendido separadamente por 97 reais/mês, mas entrando no método por aqui você recebe de graça.
+    </p>
+
+    <div class="robot-grid">
+      <!-- Coluna de texto -->
+      <div>
+        <div class="robot-card">
+          <h3 style="margin:0 0 6px">Como ele te ajuda, na prática</h3>
+          <div class="robot-list">
+            <div class="robot-li">Suporte emocional e motivacional diário, de forma acolhedora.</div>
+            <div class="robot-li">Respostas imediatas sobre alimentação, treino e emoções.</div>
+            <div class="robot-li">Orientações personalizadas conforme o seu momento.</div>
+            <div class="robot-li">Tira-dúvidas sobre cada fase e ferramenta do Método C.A.L.M.A.</div>
+            <div class="robot-li">Te responte LITERALMENTE QUALQUER QUESTIONAMENTO sobre emagrecimento e saúde mental.</div>
+          </div>
+
+          <div class="robot-quote">
+            <strong>Por que é diferente?</strong><br>
+            Ele foi treinado por mim e pela equipe com o nosso conteúdo, método, linguagem e filosofia. Além de sua base de dados gigantesca(maior que a do chatgpt) e inteligencia real e independente. 
+            Não é um chatbot genérico: é o <em>Robô C.A.L.M.A.</em>, feito para cuidar de você.
+          </div>
+
+          <div class="robot-cta">
+            <a href="#cta-final" class="btn btn-pink">✅ Quero acesso ao Robô C.A.L.M.A.</a>
+            <a href="#cta-final" class="btn">Saiba como funciona</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna da imagem / mock -->
+      <div>
+        <div class="robot-media">
+          <!-- TROQUE por sua imagem quando tiver (ex.: robo-calma.png) -->
+          <img src="robo-calma.png" alt="Imagem ilustrativa do Robô C.A.L.M.A. respondendo dúvidas" />
+          <!-- se não tiver imagem agora, pode deixar sem o <img> que o bloco continua bonito -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /ROBÔ C.A.L.M.A. -->
+  <!-- PROVAS -->
+  <section class="section">
+    <div class="container">
+      <h2>📣 Mulheres Reais. Transformações Reais.</h2>
+      <p class="muted">— Espaço para prints de depoimentos e fotos (colocamos depois).</p>
+    </div>
+  </section>
+
+<!-- GARANTIA -->
+  <section class="section alt">
+    <div class="container">
+      <div class="guarantee">
+        <!-- Texto -->
+        <div>
+          <h2>Garantia de satisfação · Comprometimento com Resultados</h2>
+          <p>
+            Se após 2 meses de acompanhamento completo você não perceber nenhuma evolução, e tiver seguido todas as orientações com comprometimento,
+            o terceiro mês será totalmente gratuito.
+          </p>
+          <p class="muted">Essa é a nossa forma de mostrar que estamos com você de verdade, e que o Método C.A.L.M.A. funciona quando você também se compromete.</p>
+        </div>
+  
+        <!-- Selo (SVG embutido) -->
+        <div class="seal-wrap" aria-hidden="true">
+          <svg class="seal" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- fundo -->
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#F9A9BF"/>
+                <stop offset="100%" stop-color="#F7C3D1"/>
+              </linearGradient>
+            </defs>
+            <circle cx="200" cy="200" r="180" fill="url(#g)"/>
+            <circle cx="200" cy="200" r="135" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="18"/>
+            <!-- check -->
+            <circle cx="200" cy="200" r="88" fill="#fff" opacity=".96"/>
+            <path d="M160 200 l30 30 58-68" fill="none" stroke="#E0527C" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- texto simples -->
+            <text x="200" y="72" text-anchor="middle" fill="#7c2944" font-size="24" font-weight="700">GARANTIA DE SATISFAÇÃO</text>
+            <text x="200" y="350" text-anchor="middle" fill="#7c2944" font-size="20" font-weight="700">MÉTODO C.A.L.M.A.</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- DADOS -->
+  <section class="section alt">
+    <div class="container">
+      <h2>📊 Por Que o C.A.L.M.A. Faz Tanta Lógica Quando Nada Mais Faz</h2>
+  
+      <div class="data-grid">
+  
+        <div class="data-card">
+          <div class="data-number">80%</div>
+          <p>das pessoas que fazem dieta voltam a engordar em até 2 anos</p>
+          <span class="data-source">Fonte: American Journal of Clinical Nutrition</span>
+        </div>
+  
+        <div class="data-card">
+          <div class="data-number">70%</div>
+          <p>dos casos de obesidade estão ligados a fatores emocionais</p>
+          <span class="data-source">Fonte: Organização Mundial da Saúde</span>
+        </div>
+  
+        <div class="data-card">
+          <div class="data-number">63%</div>
+          <p>mais sucesso na mudança de hábitos com autoconhecimento</p>
+          <span class="data-source">Fonte: Harvard Business Review</span>
+        </div>
+  
+        <div class="data-card">
+          <div class="data-number">50%</div>
+          <p>maior chance de emagrecer com reprogramação emocional</p>
+          <span class="data-source">Fonte: Universidade de Stanford</span>
+        </div>
+       
+        <div class="data-card">
+                  <p>Emagrecer sem reeducar a mente é como encher um balde furado: todo esforço escorre.</p>
+                  <span class="data-source">Metáfora validada pela psicologia comportamental</span>
+                </div>
+  
+      </div>
+  
+      <p style="margin-top:24px">
+        <strong>Conclusão:</strong> O emagrecimento real começa pela mente.
+        Se você não muda a origem do problema, o resultado não se sustenta.
+      </p>
+    </div>
+  </section>
+<!-- QUEM É DIOGO JEBE -->
+  <section class="section alt">
+    <div class="container">
+      <div class="about">
+        <!-- Foto do autor (troque o src quando tiver a foto final) -->
+        <img class="about-img" src="autor.jpg" alt="Foto de Diogo Jebe">
+  
+        <!-- Texto -->
+        <div>
+          <h2>Quem é Diogo Jebe</h2>
+          <p>
+            Diogo começou sua jornada na Educação Física acreditando que o segredo do emagrecimento estava no treino certo, na dieta perfeita, na estratégia mais eficiente.
+            Mas com o tempo, percebeu um padrão: suas alunas até conseguiam emagrecer, o difícil era continuar bem depois.
+            
+            Foi aí que veio o estalo.
+            O problema não estava no corpo… estava na mente.
+          </p>
+          <p class="muted">
+            Movido por essa descoberta, Diogo mergulhou fundo no universo da psicologia do emagrecimento, da PNL e das emoções humanas, até desenvolver, junto com uma psicóloga, o Método C.A.L.M.A., uma abordagem que ensina mulheres a emagrecerem de forma sustentável, sem tortura, sem culpa e sem o famoso efeito sanfona.
+          </p>
+            Com 15 anos de experiência e mais de 120 mulheres transformadas, Diogo viu de perto a diferença entre perder peso e se libertar do peso.
+            Hoje, ele dedica sua vida a ajudar mulheres que se sentem perdidas, cansadas de acreditar que “o problema é com elas”, a reencontrarem equilíbrio, autoestima e leveza.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ (ACORDEÃO) -->
+  <section class="section alt">
+    <div class="container">
+      <h2>❓ As Perguntas Que Mais Recebemos (E Nossas Respostas Sinceras)</h2>
+      <div class="faq" id="faq">
+        <div class="faq-item">
+          <button class="faq-q">Preciso seguir uma dieta restritiva?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 15.5 5 8.5h14Z"/></svg>
+          </button>
+          <div class="faq-a">Não. O foco é em uma alimentação real e leve, sem extremismos. Você aprende a comer bem sem culpa e sem terrorismo nutricional.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Nunca consigo manter rotina, será que vou conseguir?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 15.5 5 8.5h14Z"/></svg>
+          </button>
+          <div class="faq-a">Sim! A proposta é exatamente essa: construir consistência emocional. Tudo é feito no seu ritmo, com acompanhamento contínuo.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Funciona para quem está muito acima do peso?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 15.5 5 8.5h14Z"/></svg>
+          </button>
+          <div class="faq-a">Sim! A metodologia se adapta à sua realidade. Muitas alunas começaram com sobrepeso severo e tiveram grandes resultados.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Como funciona o acesso aos treinos?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 15.5 5 8.5h14Z"/></svg>
+          </button>
+          <div class="faq-a">Você terá acesso ao nosso app exclusivo com vídeos e orientações práticas para treinar onde quiser — em casa ou na academia.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Já tentei de tudo e nada funcionou, por que agora vai ser diferente?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 15.5 5 8.5h14Z"/></svg>
+          </button>
+          <div class="faq-a">O Método C.A.L.M.A. atua no seu emocional, no seu ritmo, e oferece suporte psicológico, físico e comportamental.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Tenho pouco tempo, vai funcionar pra mim?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 15.5 5 8.5h14Z"/></svg>
+          </button>
+          <div class="faq-a">Justamente por isso: treinos curtos, orientação simplificada e apoio emocional para manter o foco mesmo com a vida corrida.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL COM DEGRADÊ SUAVE -->
+  <section class="section" style="background:var(--grad);">
+    <div class="container center">
+      <h2>Último lembrete</h2>
+      <p>
+        Se você já tentou de tudo e está cansada de lutar com o próprio corpo… Se sente que precisa de ajuda de verdade — não só de mais uma dieta…<br/>
+        Se quer mudar de dentro para fora, com suporte, estratégia e acolhimento…
+      </p>
+      <p><strong>Então o Método C.A.L.M.A. é pra você.</strong></p>
+      <a href="#" class="btn btn-pink">✅ Quero entrar no Método C.A.L.M.A.</a>
+      <p class="muted small" style="margin-top:10px">Você não precisa fazer isso sozinha.</p>
+    </div>
+  </section>
+
+<script>
+  // FAQ acordeão
+  document.querySelectorAll('.faq-item .faq-q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const item = btn.parentElement;
+      item.classList.toggle('open');
+      // fecha os outros (se quiser modo acordeão “1 por vez”, descomente abaixo)
+      // document.querySelectorAll('.faq-item').forEach(i=>{ if(i!==item) i.classList.remove('open'); });
+    });
+  });
+</script>
+<!-- RODAPÉ -->
+<footer class="footer">
+  <div class="container">
+    <p>© <span id="year"></span> Método C.A.L.M.A. · Todos os direitos reservados</p>
+    <p class="footer-links">
+      <a href="#topo">Voltar ao topo</a> · 
+      <a href="https://www.metodocalma.com" target="_blank">Site oficial</a> · 
+      <a href="mailto:contato@metodocalma.com">Contato</a>
+    </p>
+  </div>
+</footer>
+
+<!-- Script para atualizar o ano automaticamente -->
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
