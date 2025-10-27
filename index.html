@@ -517,6 +517,43 @@
   border-radius:0 !important;
 }
 
+/* Grid do HERO: 1 coluna no celular, 2 no desktop */
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+  align-items:center;
+  margin-top:18px;
+}
+@media(min-width:980px){
+  /* dá mais espaço ao texto à esquerda e mantém a coluna do vídeo à direita */
+  .hero-grid{ grid-template-columns:1.35fr .9fr; }
+}
+
+/* Coluna da direita: vídeo + CTA empilhados com espaçamento */
+.hero-side{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* CTA do topo: largura total da coluna da direita */
+.hero-cta-btn{
+  text-align:center;
+  width:100%;
+}
+
+/* Garante que as “bolhas” (bullets) ocupem a largura da coluna da esquerda */
+.bullets{ width:100%; }
+
+/* Vídeo responsivo (já tinha), mantenho aqui só p/ garantir) */
+.video-wrap{
+  border-radius:16px; overflow:hidden; border:1px solid #E7EEF5; background:#fff;
+  box-shadow:0 6px 24px rgba(0,0,0,.06);
+  aspect-ratio:16/9;
+}
+.video-wrap iframe{width:100%; height:100%; border:0; display:block}
+
 </style>
 </head>
 <body>
