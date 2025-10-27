@@ -47,7 +47,7 @@
     padding:48px 0 28px; border-bottom:1px solid #EEF2F7;
   }
   .hero-top{display:flex; align-items:center; gap:14px; margin-bottom:10px}
-  .logo{height:36px;width:auto}
+  .logo{height:60px;width:auto}
   h1{font-size:clamp(26px,4.6vw,44px); line-height:1.1; margin:10px 0}
   .sub{color:#25313b; font-size:clamp(16px,2.6vw,20px); max-width:900px}
   .hero-grid{display:grid; grid-template-columns:1fr; gap:22px; align-items:center; margin-top:18px}
@@ -553,6 +553,25 @@
   aspect-ratio:16/9;
 }
 .video-wrap iframe{width:100%; height:100%; border:0; display:block}
+/* --- HERO: vídeo maior no desktop --- */
+@media (min-width: 980px) {
+  .video-wrap {
+    aspect-ratio: 16 / 9;
+    height: 480px;        /* aumenta a altura */
+  }
+  .video-wrap iframe {
+    height: 100%;
+  }
+  .hero-grid {
+    grid-template-columns: 1.1fr 1.1fr; /* dá mais espaço pro vídeo */
+  }
+}
+/* --- Fundo com degradê do Método CALMA --- */
+.bg-grad {
+  background: var(--grad);
+  border-top: 1px solid #eef2f7;
+  border-bottom: 1px solid #eef2f7;
+}
 
 </style>
 </head>
@@ -562,7 +581,6 @@
   <header class="hero">
     <div class="container">
       <div class="hero-top">
-        <span class="eyebrow">Método C.A.L.M.A.</span>
         <img class="logo" src="logo-calma.png" alt="Método C.A.L.M.A." />
       </div>
 
@@ -1220,7 +1238,7 @@
     </div>
   </section>
 <!-- QUEM É DIOGO JEBE -->
-  <section class="section alt">
+  <section class="section alt bg-grad">
     <div class="container">
       <div class="about">
         <!-- Foto do autor (troque o src quando tiver a foto final) -->
