@@ -553,24 +553,50 @@
   aspect-ratio:16/9;
 }
 .video-wrap iframe{width:100%; height:100%; border:0; display:block}
-/* --- HERO: vídeo maior no desktop --- */
+/* --- HERO: vídeo médio no desktop (maior sem esmagar o texto) --- */
 @media (min-width: 980px) {
   .video-wrap {
     aspect-ratio: 16 / 9;
-    height: 350px;        /* aumenta a altura */
+    height: 300px;        /* médio: maior que o padrão, menor que 350 */
   }
   .video-wrap iframe {
     height: 100%;
   }
   .hero-grid {
-    grid-template-columns: 1.1fr 1.1fr; /* dá mais espaço pro vídeo */
+    grid-template-columns: 1.3fr 1fr; /* mais espaço pro texto, vídeo confortável */
   }
 }
+
 /* --- Fundo com degradê do Método CALMA --- */
 .bg-grad {
   background: var(--grad);
   border-top: 1px solid #eef2f7;
   border-bottom: 1px solid #eef2f7;
+}
+/* ===== AJUSTE: Foto do autor maior e 100% sem moldura ===== */
+.about-img.sem-moldura{
+  /* anula qualquer “quadro” fixo */
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+
+  /* tira qualquer moldura/resquício */
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+
+  /* tamanho e centralização */
+  width: 100% !important;
+  max-width: 680px;   /* tamanho bom no celular */
+  display: block;
+  margin: 0 auto;
+}
+
+/* aumenta um pouco no desktop */
+@media (min-width: 900px){
+  .about-img.sem-moldura{
+    max-width: 820px; /* ajuste de vitrine no desktop */
+  }
 }
 
 </style>
@@ -1238,7 +1264,7 @@
     </div>
   </section>
 <!-- QUEM É DIOGO JEBE -->
-  <section class="section alt">
+  <section class="section bg-grad">
     <div class="container">
       <div class="about">
         <!-- Foto do autor (troque o src quando tiver a foto final) -->
