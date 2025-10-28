@@ -607,7 +607,12 @@
   box-shadow: none;
   border-radius: 0;
 }
-
+/* sobreposição de clique para reiniciar e ativar o som */
+.video-wrap{ position:relative; }
+.video-click-catcher{
+  position:absolute; inset:0; z-index:2;
+  cursor:pointer; background:transparent;
+}
 </style>
 </head>
 <body>
@@ -644,15 +649,22 @@
 
   <!-- COLUNA DIREITA: vídeo + CTA juntos -->
   <div class="hero-side">
-    <div class="video-wrap">
-  <iframe
-    src="https://www.youtube-nocookie.com/embed/Ub-6rKHNoUs?rel=0&modestbranding=1&playsinline=1&controls=1&autoplay=0&mute=0&loop=1&playlist=Ub-6rKHNoUs&iv_load_policy=3&color=white"
-    title="Vídeo de apresentação — Método C.A.L.M.A."
-    loading="lazy"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen
-  ></iframe>
+  <div class="video-wrap">
+    <!-- sobreposição que “captura” o primeiro clique -->
+    <div class="video-click-catcher" aria-label="Ativar som e começar do início"></div>
+
+    <iframe
+      id="ytplayer"
+      src="https://www.youtube-nocookie.com/embed/Ub-6rKHNoUs?rel=0&modestbranding=1&playsinline=1&autoplay=1&mute=1&enablejsapi=1&iv_load_policy=3&color=white&origin=https://mentoria.metodocalma.net"
+      title="Vídeo de apresentação — Método C.A.L.M.A."
+      loading="lazy"
+      allow="autoplay; encrypted-media; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <a href="#cta-final" class="btn btn-pink hero-cta-btn">🚀 Comece Agora Sua Transformação</a>
+  <span class="badge">Lugares limitados</span>
 </div>
 
 
@@ -1437,6 +1449,41 @@
   background: #20b955;
 }
 </style>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let player;
 
+  // YouTube cria o player com API habilitada
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ytplayer', {
+      events: {
+        onReady: (e) => {
+          // garante autoplay mudo no carregamento
+          e.target.mute();
+          e.target.playVideo();
+        }
+      }
+    });
+  }
+
+  // Primeiro toque: reinicia do zero, ativa som e começa a tocar
+  document.addEventListener('DOMContentLoaded', () => {
+    const catcher = document.querySelector('.video-click-catcher');
+    if (!catcher) return;
+
+    catcher.addEventListener('click', () => {
+      try {
+        if (player && player.seekTo) {
+          player.seekTo(0, true);  // volta pro início
+          player.unMute();         // ativa som
+          player.playVideo();      // toca
+        }
+      } finally {
+        // remove a sobreposição para liberar os controles normais do YouTube
+        catcher.remove();
+      }
+    }, { once: true });
+  });
+</script>
 </body>
 </html>
