@@ -18,6 +18,14 @@
     --bg-soft:#F9FAFB;
     --grad: linear-gradient(135deg, #FADCE4 0%, #D6F9F6 100%);
   }
+  /* Teal idêntico ao usado nos títulos dos cards */
+:root{ --accent-teal: #0b7d73; }
+
+/* Atualiza o kicker para usar a variável (fica tudo consistente) */
+.kicker{ color: var(--accent-teal); }
+
+/* Utilitário para aplicar a mesma cor em qualquer texto */
+.teal{ color: var(--accent-teal) !important; }
   *{box-sizing:border-box}
   body{
     margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
@@ -715,7 +723,7 @@
       <div class="pillar-row">
        <img class="pillar-img" src="emocional.jpg" alt="Consciência Emocional">
         <div class="pillar-text">
-          <h3>Consciência Emocional</h3>
+          <h3><span class="teal">Consciência Emocional</span></h3>
           <p>Rompe a autossabotagem, regula ansiedade e fortalece autoestima.</p>
           <div class="pillars-note small">Base para decisões mais calmas e consistentes.</div>
         </div>
