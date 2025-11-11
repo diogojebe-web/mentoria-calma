@@ -1150,6 +1150,20 @@ img {
 .exit-footer {
   padding: 0 24px 24px;
 
+/* Sobrescreve a classe about-img para a foto do autor */
+img[src="autor.jpg"] {
+  aspect-ratio: unset !important;
+  object-fit: unset !important;
+  background: transparent !important;
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 16px !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.05) !important;
+  border: 1px solid #E7EEF5 !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
 </style>
 </head>
 <body>
@@ -1915,13 +1929,12 @@ img {
     <div class="container">
       <div class="about">
         <!-- Foto do autor (troque o src quando tiver a foto final) -->
-       <img class="about-img" 
-     src="autor.jpg" 
+       <img src="autor.jpg" 
      alt="Diogo Jebe - Criador do Método C.A.L.M.A." 
      loading="lazy" 
      width="400" 
      height="500"
-     style="width:100% !important; height:auto !important; border-radius:16px !important; box-shadow:0 6px 18px rgba(0,0,0,.05) !important; border:1px solid #E7EEF5 !important; display:block !important; margin:0 auto !important;">
+     style="width:100%; height:auto; border-radius:16px; box-shadow:0 6px 18px rgba(0,0,0,.05); border:1px solid #E7EEF5; display:block; margin:0 auto;">
   
         <!-- Texto -->
         <div>
