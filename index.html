@@ -5,6 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Método C.A.L.M.A. — Consultoria</title>
 <style>
+/* ========================================
+   CSS CRÍTICO (Above-the-fold)
+   Carrega primeiro para renderizar rápido
+   ======================================== */
+
+/* Reset e base */
+*, *::before, *::after { box-sizing: border-box; }
+body { 
+  margin: 0; 
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+  color: var(--ink); 
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+/* Variáveis (mantém como está) */
+:root {
+  --turquoise: #2FD5C7;
+  --turquoise-ink: #005d56;
+  --turquoise-soft: #ECFFFC;
+  --pink: #F4A3B8;
+  --pink-ink: #7c2944;
+  --pink-soft: #FDF1F5;
+  --ink: #111827;
+  --muted: #6B7280;
+  --bg: #ffffff;
+  --bg-soft: #F9FAFB;
+  --grad: linear-gradient(135deg, #FADCE4 0%, #D6F9F6 100%);
+  --accent-teal: #0b7d73;
+}
+
+/* Hero (primeira tela - CRÍTICO) */
+.hero {
+  background: var(--grad);
+  padding: 48px 0 28px;
+  border-bottom: 1px solid #EEF2F7;
+}
+
+h1 {
+  font-size: clamp(26px, 4.6vw, 44px);
+  line-height: 1.1;
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+/* Botões (CRÍTICO) */
+.btn {
+  display: inline-block;
+  background: var(--turquoise);
+  color: #003433;
+  font-weight: 700;
+  padding: 16px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(47, 213, 199, 0.25);
+  transition: transform 0.08s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(47, 213, 199, 0.35);
+}
+
+.btn-pink {
+  background: var(--pink);
+  color: #5b1030;
+  box-shadow: 0 8px 18px rgba(244, 163, 184, 0.25);
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Imagens responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ========================================
+   RESTO DO CSS (pode manter como está)
+   ======================================== */
+
   :root{
     --turquoise:#2FD5C7;
     --turquoise-ink:#005d56;
@@ -748,7 +835,6 @@
       loading="lazy"
       allow="autoplay; encrypted-media; picture-in-picture; web-share"
       allowfullscreen
-      width="560"  height="315"
     ></iframe>
   </div>
 
