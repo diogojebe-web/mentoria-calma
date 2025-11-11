@@ -788,10 +788,401 @@ img {
     padding: 30px 16px;
   }
 }
+/* ========================================
+   BARRA DE URGÊNCIA
+   ======================================== */
+
+.urgency-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #EF4444 0%, #F59E0B 100%);
+  color: white;
+  z-index: 999;
+  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.urgency-bar.show {
+  transform: translateY(0);
+}
+
+.urgency-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 12px 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .urgency-content {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 10px 0;
+  }
+}
+
+.urgency-icon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.urgency-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.urgency-text strong {
+  font-size: 1rem;
+  color: #FFF;
+}
+
+#vagas-count {
+  color: #FFD700;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.urgency-timer {
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+#timer-display {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.urgency-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 8px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.urgency-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .urgency-close {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+  }
+  
+  .urgency-content {
+    position: relative;
+  }
+}
+/* ========================================
+   PROVA SOCIAL EM TEMPO REAL
+   ======================================== */
+
+.social-proof-notification {
+  position: fixed;
+  bottom: 80px; /* acima do WhatsApp float */
+  right: 20px;
+  width: 320px;
+  max-width: calc(100% - 40px);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+  z-index: 998;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.social-proof-notification.show {
+  transform: translateX(0);
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.notification-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.notification-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.notification-text strong {
+  color: #FFF;
+  font-weight: 600;
+}
+
+#notification-time {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.notification-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 480px) {
+  .social-proof-notification {
+    bottom: 90px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+  
+  .notification-content {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .notification-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+/* ========================================
+   POP-UP DE SAÍDA
+   ======================================== */
+
+.exit-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.exit-popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.exit-content {
+  background: white;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: popupSlideIn 0.3s ease;
+}
+
+@keyframes popupSlideIn {
+  from {
+    transform: scale(0.7) translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.exit-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #9CA3AF;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.exit-close:hover {
+  background: #F3F4F6;
+  color: #374151;
+}
+
+.exit-header {
+  text-align: center;
+  padding: 32px 24px 16px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.exit-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.exit-header h3 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.exit-body {
+  padding: 24px;
+  text-align: center;
+}
+
+.exit-body p {
+  margin: 0 0 16px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.exit-price {
+  background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+  border: 2px solid #10B981;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 24px 0;
+  text-align: center;
+}
+
+.price-original {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #9CA3AF;
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+
+.price-discount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #10B981;
+  margin: 8px 0;
+}
+
+.price-save {
+  font-size: 1rem;
+  color: #059669;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.exit-actions {
+  padding: 0 24px 24px;
+  text-align: center;
+}
+
+.exit-cta {
+  display: block;
+  width: 100%;
+  padding: 18px !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #F4A3B8, #EC4899) !important;
+  border: none !important;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 25px rgba(244, 163, 184, 0.3) !important;
+}
+
+.exit-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 35px rgba(244, 163, 184, 0.4) !important;
+}
+
+.exit-decline:hover {
+  background: #F3F4F6;
+}
+
+.exit-footer {
+  padding: 0 24px 24px;
 
 </style>
 </head>
 <body>
+  <!-- BARRA DE URGÊNCIA -->
+<div class="urgency-bar" role="alert" aria-live="polite">
+  <div class="container">
+    <div class="urgency-content">
+      <span class="urgency-icon">🚨</span>
+      <span class="urgency-text">
+        <strong>Apenas <span id="vagas-count">8</span> vagas disponíveis</strong> 
+        para o Método C.A.L.M.A. em Janeiro
+      </span>
+      <span class="urgency-timer">
+        ⏰ Termina em: 
+        <span id="timer-display">02:47:23</span>
+      </span>
+      <button class="urgency-close" aria-label="Fechar aviso de urgência">×</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICAÇÕES DE PROVA SOCIAL -->
+<div class="social-proof-notification" id="socialProof" style="display: none;">
+  <div class="notification-content">
+    <div class="notification-avatar">👩</div>
+    <div class="notification-text">
+      <strong id="notification-name">Carolina M.</strong> acabou de entrar no 
+      <strong>Método C.A.L.M.A.</strong>
+      <div class="notification-time" id="notification-time">há 2 minutos</div>
+    </div>
+    <div class="notification-close">×</div>
+  </div>
+</div>
 
   <!-- HERO COM DEGRADÊ -->
   <header class="hero">
@@ -1679,5 +2070,175 @@ img {
     }, { once: true });
   });
 </script>
+<!-- JAVASCRIPT PARA URGÊNCIA -->
+<script>
+// Contador de vagas (diminui a cada 30 minutos)
+let vagas = 8;
+const vagasElement = document.getElementById('vagas-count');
+
+function atualizarVagas() {
+  if (vagas > 0) {
+    vagasElement.textContent = vagas;
+    vagas--;
+  }
+}
+
+// Timer de contagem regressiva (48 horas)
+function iniciarTimer() {
+  const fimOferta = new Date();
+  fimOferta.setHours(fimOferta.getHours() + 48); // 48 horas
+  
+  function atualizarTimer() {
+    const agora = new Date();
+    const diferenca = fimOferta - agora;
+    
+    if (diferenca > 0) {
+      const horas = Math.floor(diferenca / (1000 * 60 * 60));
+      const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+      
+      document.getElementById('timer-display').textContent = 
+        `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+    } else {
+      document.getElementById('timer-display').textContent = '00:00:00';
+      document.querySelector('.urgency-bar').innerHTML = 
+        '<div class="container"><div class="urgency-content"><span class="urgency-icon">🚨</span><span class="urgency-text"><strong>Oferta encerrada!</strong> Entre em contato para saber sobre a próxima turma.</span></div></div>';
+    }
+  }
+  
+  atualizarTimer();
+  setInterval(atualizarTimer, 1000);
+}
+
+// Mostrar barra após 3 segundos
+setTimeout(() => {
+  document.querySelector('.urgency-bar').classList.add('show');
+}, 3000);
+
+// Atualizar vagas a cada 30 minutos
+setInterval(atualizarVagas, 30 * 60 * 1000);
+
+// Fechar barra
+document.querySelector('.urgency-close').addEventListener('click', function() {
+  document.querySelector('.urgency-bar').style.transform = 'translateY(-100%)';
+  // Reaparece após 5 minutos
+  setTimeout(() => {
+    document.querySelector('.urgency-bar').classList.add('show');
+    document.querySelector('.urgency-bar').style.transform = 'translateY(0)';
+  }, 5 * 60 * 1000);
+});
+
+// Inicializar
+iniciarTimer();
+atualizarVagas();
+</script>
+
+<!-- JAVASCRIPT PARA PROVA SOCIAL -->
+<script>
+const nomesAlunas = [
+  'Carolina M.', 'Fernanda S.', 'Juliana R.', 'Mariana C.', 'Beatriz L.',
+  'Ana Paula T.', 'Camila F.', 'Larissa G.', 'Vanessa B.', 'Patrícia D.',
+  'Renata K.', 'Sabrina O.', 'Tatiana E.', 'Valéria N.', 'Wanda P.'
+];
+
+const frases = [
+  'acabou de entrar no Método C.A.L.M.A.',
+  'garantiu sua vaga no Método C.A.L.M.A.',
+  'começou sua transformação com o C.A.L.M.A.',
+  'se inscreveu no Método C.A.L.M.A.',
+  'acessou o Robô C.A.L.M.A. pela primeira vez'
+];
+
+function mostrarNotificacao() {
+  const notification = document.getElementById('socialProof');
+  const nomeAleatorio = nomesAlunas[Math.floor(Math.random() * nomesAlunas.length)];
+  const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+  const tempoAleatorio = Math.floor(Math.random() * 5) + 1; // 1 a 5 minutos
+  
+  // Configurar conteúdo
+  document.getElementById('notification-name').textContent = nomeAleatorio;
+  document.querySelector('.notification-text strong:last-child').textContent = fraseAleatoria;
+  document.getElementById('notification-time').textContent = `há ${tempoAleatorio} minutos`;
+  
+  // Mostrar notificação
+  notification.style.display = 'block';
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 100);
+  
+  // Esconder após 8 segundos
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 300);
+  }, 8000);
+  
+  // Fechar manualmente
+  document.querySelector('.notification-close').onclick = function() {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 300);
+  };
+}
+
+// Mostrar primeira notificação após 10 segundos
+setTimeout(mostrarNotificacao, 10000);
+
+// Depois mostrar a cada 2-4 minutos
+setInterval(() => {
+  const delayAleatorio = (Math.random() * 2 + 2) * 60 * 1000; // 2-4 minutos
+  setTimeout(mostrarNotificacao, delayAleatorio);
+}, 120000); // primeira após 2 minutos
+</script>
+
+<!-- POP-UP DE SAÍDA -->
+<div id="exitPopup" class="exit-popup" style="display: none;">
+  <div class="exit-content">
+    <button class="exit-close" aria-label="Fechar pop-up">×</button>
+    
+    <div class="exit-header">
+      <span class="exit-icon">⏳</span>
+      <h3>Espere! Antes de sair...</h3>
+    </div>
+    
+    <div class="exit-body">
+      <p>Você está a <strong>um passo</strong> de transformar sua vida para sempre.</p>
+      <p>Ganhe <strong>15% OFF no primeiro mês</strong> se decidir agora:</p>
+      
+      <div class="exit-price">
+        <div class="price-original">R$247</div>
+        <div class="price-discount">R$210</div>
+        <div class="price-save">Economia de R$37!</div>
+      </div>
+      
+      <p style="font-size: 0.9rem; color: #6B7280; margin: 16px 0;">
+        <strong>🚨 Válido apenas por 24h</strong> - Não perca essa chance!
+      </p>
+    </div>
+    
+    <div class="exit-actions">
+      <a href="https://wa.me/5521988170913?text=Oi!%20Vi%20o%20pop-up%20e%20quero%20o%20desconto%20de%2015%25%20no%20M%C3%A9todo%20C.A.L.M.A." 
+         class="exit-cta btn btn-pink" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         aria-label="Garantir desconto de 15% no Método C.A.L.M.A.">
+        ✅ Quero Meu Desconto Agora
+      </a>
+      
+      <button class="exit-decline" style="background: none; border: 1px solid #D1D5DB; color: #374151; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 12px;">
+        Não, obrigado
+      </button>
+    </div>
+    
+    <div class="exit-footer">
+      <p style="font-size: 0.8rem; color: #9CA3AF; text-align: center; margin: 0;">
+        Você pode sair quando quiser. Sem compromisso.
+      </p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
