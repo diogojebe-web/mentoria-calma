@@ -2342,5 +2342,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // setTimeout(openPopup, 30000);
 });
 </script>
+<script>
+  window.addEventListener('orientationchange', () => {
+    // força re-layout do grid/iframe sem recarregar a página
+    document.body.style.transform = 'translateZ(0)';
+    // “toca” no iframe para ele recalcular
+    const v = document.getElementById('ytplayer');
+    if (v){ v.style.width = '99.9%'; void v.offsetWidth; v.style.width = ''; }
+
+    // já existe sua função que ajusta o padding do topo; chama de novo se estiver disponível
+    try { if (typeof ajustarPaddingTopo === 'function') ajustarPaddingTopo(); } catch(e){}
+    // limpa o hack
+    requestAnimationFrame(() => { document.body.style.transform = ''; });
+  }, { passive: true });
+</script>
 </body>
 </html>
