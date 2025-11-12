@@ -828,18 +828,18 @@ img {
 
 @media (max-width: 768px) {
   body {
-    padding-top: 45px;  /* barra menor no celular */
+    padding-top: 50px;  /* barra menor no celular */
   }
   
   .urgency-bar {
-    font-size: 0.7rem;  /* texto bem menor */
+    font-size: 0.75rem;  /* texto bem menor */
   }
   
   .urgency-content {
     flex-direction: column;  /* empilha tudo verticalmente */
-    gap: 0.4rem;
+    gap: 0.5rem;
     text-align: center;
-    padding: 6px 12px;
+    padding: 8px 12px;
     justify-content: center;
     align-items: center;
   }
@@ -850,14 +850,15 @@ img {
   }
   
   .urgency-text {
-    font-size: 0.7rem;
-    flex: 1 1 auto;
+    font-size: 0.75rem;
     white-space: normal;  /* PERMITE quebrar linha */
-    line-height: 1.3;
+    line-height: 1.4;
+    max-width: 100%;
   }
   
   .urgency-text strong {
-    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 0.2rem;
   }
   
   #vagas-count {
