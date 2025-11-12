@@ -755,7 +755,8 @@ img {
   background:linear-gradient(90deg,#EF4444 0%,#F59E0B 100%);
   color:#fff; z-index:999;
   box-shadow:0 2px 10px rgba(239,68,68,.3);
-  transform:translateY(-100%); transition:transform .3s ease;
+  transform:translateY(-100%); 
+  transition:transform .3s ease;
   font-size:.85rem; line-height:1.3;
 }
 .urgency-bar.show{ transform:translateY(0) }
@@ -2054,98 +2055,82 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- JAVASCRIPT PARA URGÊNCIA -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Elementos principais
-  const bar = document.querySelector('.urgency-bar');
-  const vagasElement = document.getElementById('vagas-count');
+  const bar          = document.querySelector('.urgency-bar');
+  const vagasEl      = document.getElementById('vagas-count');
   const timerDisplay = document.getElementById('timer-display');
-  const closeBtn = document.querySelector('.urgency-close');
+  const closeBtn     = document.querySelector('.urgency-close');
+  let reopenTimer    = null;
 
-  if (!bar || !vagasElement || !timerDisplay) return;
+  if (!bar || !vagasEl || !timerDisplay) return;
 
-  // Contador de vagas (diminui a cada 30 minutos)
+  /* ---- padding do topo controlado só pela classe .show ---- */
+  function ajustarPaddingTopo(){
+    document.body.style.paddingTop = bar.classList.contains('show')
+      ? bar.offsetHeight + 'px'
+      : '0px';
+  }
+  // deixa acessível caso outro script queira chamar
+  window.ajustarPaddingTopo = ajustarPaddingTopo;
+
+  function mostrarBarra(){
+    clearTimeout(reopenTimer);
+    bar.classList.add('show');   // aparece
+    bar.style.transform = '';    // garante que não ficou nada inline antigo
+    ajustarPaddingTopo();
+  }
+
+  function fecharBarra(){
+    bar.classList.remove('show'); // some (e NÃO volta o padding)
+    bar.style.transform = '';
+    ajustarPaddingTopo();
+
+    // reabrir depois de 5 min (se não quiser reabrir, apague a linha abaixo)
+    reopenTimer = setTimeout(mostrarBarra, 5 * 60 * 1000);
+  }
+
+  /* ---- lógica das vagas (30 em 30 min) ---- */
   let vagas = 8;
-  function atualizarVagas() {
-    if (vagas > 0) {
-      vagasElement.textContent = String(vagas);
+  function atualizarVagas(){
+    if (vagas > 0){
+      vagasEl.textContent = String(vagas);
       vagas--;
     }
   }
-
-  // Timer de contagem regressiva (48 horas)
-  function iniciarTimer() {
-    const fimOferta = new Date();
-    fimOferta.setHours(fimOferta.getHours() + 48);
-
-    function atualizarTimer() {
-      const agora = new Date();
-      const diferenca = fimOferta - agora;
-
-      if (diferenca > 0) {
-        const horas = Math.floor(diferenca / (1000 * 60 * 60));
-        const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
-
-        timerDisplay.textContent =
-          `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
-      } else {
-        timerDisplay.textContent = '00:00:00';
-        bar.innerHTML =
-          '<div class="container"><div class="urgency-content"><span class="urgency-icon">🚨</span><span class="urgency-text"><strong>Oferta encerrada!</strong> Entre em contato para saber sobre a próxima turma.</span></div></div>';
-      }
-    }
-
-    atualizarTimer();
-    setInterval(atualizarTimer, 1000);
-  }
-
-  // Mostrar barra e ajustar o padding do topo
-function ajustarPaddingTopo() {
-  const bar = document.querySelector('.urgency-bar');
-  if (!bar) return;
-  document.body.style.paddingTop = bar.classList.contains('show')
-    ? bar.offsetHeight + 'px'
-    : '0px';
-}
-
-function mostrarBarra() {
-  const bar = document.querySelector('.urgency-bar');
-  if (!bar) return;
-  bar.classList.add('show');
-  ajustarPaddingTopo();
-}
-
-// mostra após 3s
-setTimeout(mostrarBarra, 3000);
-
-// recalcula ao redimensionar/girar
-window.addEventListener('resize', ajustarPaddingTopo);
-window.addEventListener('orientationchange', ajustarPaddingTopo);
-
-  // Atualizar vagas a cada 30 minutos
+  atualizarVagas();
   setInterval(atualizarVagas, 30 * 60 * 1000);
 
-  // Fechar barra e reabrir depois (com ajuste de padding)
-if (closeBtn) {
-  closeBtn.addEventListener('click', () => {
-    bar.style.transform = 'translateY(-100%)';
-
-    // remove o padding-top quando a barra some
-    document.body.style.paddingTop = '0px';
-
-    // depois de 5 min, reaparece e ajusta o padding novamente
-    setTimeout(() => {
-      bar.classList.add('show');
-      bar.style.transform = 'translateY(0)';
-
-      // recoloca o padding igual à altura da barra
-      document.body.style.paddingTop = bar.offsetHeight + 'px';
-    }, 5 * 60 * 1000);
-  });
-}
-
-  // Inicializar agora
+  /* ---- timer 48h ---- */
+  function iniciarTimer(){
+    const fim = new Date(Date.now() + 48 * 60 * 60 * 1000);
+    function tick(){
+      const diff = fim - new Date();
+      if (diff <= 0){
+        timerDisplay.textContent = '00:00:00';
+        // opcionalmente, você pode ocultar a barra ao acabar:
+        // fecharBarra();
+        return;
+      }
+      const h = Math.floor(diff / 3.6e6);
+      const m = Math.floor((diff % 3.6e6) / 6e4);
+      const s = Math.floor((diff % 6e4) / 1e3);
+      timerDisplay.textContent =
+        `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
   iniciarTimer();
-  atualizarVagas();
+
+  /* ---- eventos ---- */
+  // mostra a barra após 3s
+  setTimeout(mostrarBarra, 3000);
+
+  // fechar no X
+  closeBtn?.addEventListener('click', fecharBarra);
+
+  // quando a viewport muda (Safari esconde/mostra barra de endereço), recalcula
+  window.addEventListener('resize', ajustarPaddingTopo, { passive:true });
+  window.addEventListener('orientationchange', ajustarPaddingTopo, { passive:true });
 });
 </script>
 
