@@ -12,7 +12,8 @@
 
 /* Reset e base */
 *, *::before, *::after { box-sizing: border-box; }
-body { 
+body {
+  padding-top: 60px;  /*
   margin: 0; 
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
   color: var(--ink); 
@@ -821,13 +822,42 @@ img {
 }
 
 @media (max-width: 768px) {
+  body {
+    padding-top: 50px;  /* barra menor no celular */
+  }
+  
+  .urgency-bar {
+    font-size: 0.75rem;  /* texto menor */
+  }
+  
   .urgency-content {
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.3rem;
     text-align: center;
-    padding: 10px 0;
+    padding: 8px 12px;  /* menos espaço */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .urgency-text {
+    font-size: 0.7rem;  /* texto menor */
+    flex: 1 1 100%;
+  }
+  
+  .urgency-text strong {
+    font-size: 0.8rem;
+  }
+  
+  .urgency-timer {
+    font-size: 0.65rem;  /* timer menor */
+    padding: 2px 4px;
+  }
+  
+  .urgency-close {
+    font-size: 1.1rem;  /* X menor */
   }
 }
+
 
 .urgency-icon {
   font-size: 1.2rem;
