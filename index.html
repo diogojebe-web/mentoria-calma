@@ -2273,26 +2273,6 @@ setInterval(() => {
 }, 120000); // primeira após 2 minutos
 </script>
 
-<script>
-  // Mostra o popup após 30s (apenas para teste)
-  setTimeout(()=>{
-    const p = document.getElementById('exitPopup');
-    p.style.display = 'flex';
-    p.classList.add('show');
-  }, 30000);
-
-  document.querySelector('.exit-close')?.addEventListener('click', ()=>{
-    const p = document.getElementById('exitPopup');
-    p.classList.remove('show');
-    setTimeout(()=> p.style.display='none', 300);
-  });
-  document.querySelector('.exit-decline')?.addEventListener('click', ()=>{
-    const p = document.getElementById('exitPopup');
-    p.classList.remove('show');
-    setTimeout(()=> p.style.display='none', 300);
-  });
-</script>
-
 <!-- POP-UP DE SAÍDA -->
 <div id="exitPopup" class="exit-popup" style="display: none;">
   <div class="exit-content">
