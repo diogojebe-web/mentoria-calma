@@ -1081,6 +1081,18 @@ img[src="autor.jpg"] {
 @media (max-width: 979.98px){
   .video-wrap { height: auto !important; }
 }
+
+/* --- HOTFIX iOS para o efeito de vidro (backdrop-filter) --- */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 980px){
+    .bullet{
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      background: #fff !important;              /* mantém o visual claro */
+      background-clip: padding-box;             /* evita sangria na borda arredondada */
+    }
+  }
+}
 </style>
 </head>
   <body id="topo">
