@@ -2083,29 +2083,24 @@ document.addEventListener('DOMContentLoaded', () => {
 function ajustarPaddingTopo() {
   const bar = document.querySelector('.urgency-bar');
   if (!bar) return;
-  // usa getBoundingClientRect() que atualiza antes do reflow completo
-  const altura = bar.classList.contains('show')
-    ? bar.getBoundingClientRect().height
-    : 0;
-  document.body.style.paddingTop = `${altura}px`;
+  document.body.style.paddingTop = bar.classList.contains('show')
+    ? bar.offsetHeight + 'px'
+    : '0px';
 }
 
 function mostrarBarra() {
   const bar = document.querySelector('.urgency-bar');
   if (!bar) return;
   bar.classList.add('show');
-  // recalcula duas vezes pra garantir o valor certo
   ajustarPaddingTopo();
-  setTimeout(ajustarPaddingTopo, 250);
 }
 
 // mostra após 3s
 setTimeout(mostrarBarra, 3000);
 
-// recalcula ao redimensionar/girar (com pequeno delay pra iOS)
-['resize', 'orientationchange'].forEach(evt => {
-  window.addEventListener(evt, () => setTimeout(ajustarPaddingTopo, 200));
-});
+// recalcula ao redimensionar/girar
+window.addEventListener('resize', ajustarPaddingTopo);
+window.addEventListener('orientationchange', ajustarPaddingTopo);
 
   // Atualizar vagas a cada 30 minutos
   setInterval(atualizarVagas, 30 * 60 * 1000);
