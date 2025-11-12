@@ -10,7 +10,6 @@
    Carrega primeiro para renderizar rápido
    ======================================== */
 
-/* Reset e base */
 *, *::before, *::after { box-sizing: border-box; }
 body {
   padding-top: 60px;
@@ -93,22 +92,6 @@ img {
    RESTO DO CSS (pode manter como está)
    ======================================== */
 
-  :root{
-    --turquoise:#2FD5C7;
-    --turquoise-ink:#005d56;
-    --turquoise-soft:#ECFFFC;
-    --pink:#F4A3B8;
-    --pink-ink:#7c2944;
-    --pink-soft:#FDF1F5;
-    --ink:#111827;
-    --muted:#6B7280;
-    --bg:#ffffff;
-    --bg-soft:#F9FAFB;
-    --grad: linear-gradient(135deg, #FADCE4 0%, #D6F9F6 100%);
-  }
-  /* Teal idêntico ao usado nos títulos dos cards */
-:root{ --accent-teal: #0b7d73; }
-
 /* Atualiza o kicker para usar a variável (fica tudo consistente) */
 .kicker{ color: var(--accent-teal); }
 
@@ -123,11 +106,6 @@ img {
   .container{max-width:1100px;margin:0 auto;padding:0 20px}
 
   /* --- Botões & util --- */
-  .btn{
-    display:inline-block; background:var(--turquoise); color:#003433; 
-    font-weight:700; padding:16px 22px; border-radius:12px; text-decoration:none;
-    box-shadow:0 8px 18px rgba(47,213,199,.25); transition:transform .08s ease, box-shadow .2s ease;
-  }
   .btn:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(47,213,199,.35)}
   .btn-pink{ background:var(--pink); color:#5b1030; box-shadow:0 8px 18px rgba(244,163,184,.25)}
   .badge{display:inline-block; padding:.22rem .6rem; border-radius:999px; background:#E6FFFB; color:#06635d; font-weight:700; font-size:.78rem}
@@ -138,10 +116,6 @@ img {
   .divider{height:1px; background:#EEF2F7; margin:22px 0}
 
   /* --- HERO --- */
-  .hero{
-    background:var(--grad);
-    padding:48px 0 28px; border-bottom:1px solid #EEF2F7;
-  }
   .hero-top{display:flex; align-items:center; gap:14px; margin-bottom:10px}
   .logo{height:60px;width:auto}
   h1{font-size:clamp(26px,4.6vw,44px); line-height:1.1; margin:10px 0}
