@@ -2212,16 +2212,24 @@ window.addEventListener('orientationchange', ajustarPaddingTopo);
   // Atualizar vagas a cada 30 minutos
   setInterval(atualizarVagas, 30 * 60 * 1000);
 
-  // Fechar barra e reabrir depois
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      bar.style.transform = 'translateY(-100%)';
-      setTimeout(() => {
-        bar.classList.add('show');
-        bar.style.transform = 'translateY(0)';
-      }, 5 * 60 * 1000);
-    });
-  }
+  // Fechar barra e reabrir depois (com ajuste de padding)
+if (closeBtn) {
+  closeBtn.addEventListener('click', () => {
+    bar.style.transform = 'translateY(-100%)';
+
+    // remove o padding-top quando a barra some
+    document.body.style.paddingTop = '0px';
+
+    // depois de 5 min, reaparece e ajusta o padding novamente
+    setTimeout(() => {
+      bar.classList.add('show');
+      bar.style.transform = 'translateY(0)';
+
+      // recoloca o padding igual à altura da barra
+      document.body.style.paddingTop = bar.offsetHeight + 'px';
+    }, 5 * 60 * 1000);
+  });
+}
 
   // Inicializar agora
   iniciarTimer();
