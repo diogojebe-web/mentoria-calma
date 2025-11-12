@@ -588,13 +588,6 @@ img {
 }
 
 /* Grid do HERO: 1 coluna no celular, 2 no desktop */
-.hero-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:22px;
-  align-items:center;
-  margin-top:18px;
-}
 @media(min-width:980px){
   /* dá mais espaço ao texto à esquerda e mantém a coluna do vídeo à direita */
   .hero-grid{ grid-template-columns:1.35fr .9fr; }
@@ -617,12 +610,6 @@ img {
 .bullets{ width:100%; }
 
 /* Vídeo responsivo (já tinha), mantenho aqui só p/ garantir) */
-.video-wrap{
-  border-radius:16px; overflow:hidden; border:1px solid #E7EEF5; background:#fff;
-  box-shadow:0 6px 24px rgba(0,0,0,.06);
-  aspect-ratio:16/9;
-}
-.video-wrap iframe{width:100%; height:100%; border:0; display:block}
 /* --- HERO: vídeo médio no desktop (maior sem esmagar o texto) --- */
 @media (min-width: 980px) {
   .video-wrap {
@@ -2050,15 +2037,20 @@ img[src="autor.jpg"] {
   </section>
 
 <script>
-  // FAQ acordeão
-  document.querySelectorAll('.faq-item .faq-q').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
+  const perguntas = document.querySelectorAll('.faq-item .faq-q');
+  if (!perguntas || !perguntas.length) return;
+
+  perguntas.forEach((btn) => {
+    btn.addEventListener('click', () => {
       const item = btn.parentElement;
+      if (!item) return;
       item.classList.toggle('open');
-      // fecha os outros (se quiser modo acordeão “1 por vez”, descomente abaixo)
-      // document.querySelectorAll('.faq-item').forEach(i=>{ if(i!==item) i.classList.remove('open'); });
+      // // se quiser modo “1 por vez”, descomente:
+      // document.querySelectorAll('.faq-item').forEach(i => { if (i !== item) i.classList.remove('open'); });
     });
   });
+});
 </script>
 <!-- RODAPÉ -->
 <footer class="footer">
@@ -2079,7 +2071,7 @@ img[src="autor.jpg"] {
 <a href="https://wa.me/5521988170913?text=Oi! Quero saber mais sobre o Método C.A.L.M.A." 
    class="whatsapp-float" 
    target="_blank" 
-   rel="noopener"
+   rel="noopener noreferrer"
   aria-label="Abrir WhatsApp">
   <svg viewBox="0 0 24 24" width="40" height="40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path fill="white" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.47-.149-.669.15-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.205-.242-.583-.487-.504-.669-.513l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.718 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.617h-.003a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.997-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.896a9.825 9.825 0 012.897 6.994c-.003 5.45-4.437 9.884-9.889 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.095.547 4.142 1.588 5.945L0 24l6.305-1.654a11.86 11.86 0 005.732 1.459h.005c6.554 0 11.889-5.335 11.892-11.893a11.82 11.82 0 00-3.486-8.413" />
@@ -2152,125 +2144,138 @@ img[src="autor.jpg"] {
 </script>
 <!-- JAVASCRIPT PARA URGÊNCIA -->
 <script>
-// Contador de vagas (diminui a cada 30 minutos)
-let vagas = 8;
-const vagasElement = document.getElementById('vagas-count');
+document.addEventListener('DOMContentLoaded', () => {
+  // Elementos principais
+  const bar = document.querySelector('.urgency-bar');
+  const vagasElement = document.getElementById('vagas-count');
+  const timerDisplay = document.getElementById('timer-display');
+  const closeBtn = document.querySelector('.urgency-close');
 
-function atualizarVagas() {
-  if (vagas > 0) {
-    vagasElement.textContent = vagas;
-    vagas--;
-  }
-}
+  if (!bar || !vagasElement || !timerDisplay) return;
 
-// Timer de contagem regressiva (48 horas)
-function iniciarTimer() {
-  const fimOferta = new Date();
-  fimOferta.setHours(fimOferta.getHours() + 48); // 48 horas
-  
-  function atualizarTimer() {
-    const agora = new Date();
-    const diferenca = fimOferta - agora;
-    
-    if (diferenca > 0) {
-      const horas = Math.floor(diferenca / (1000 * 60 * 60));
-      const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-      const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
-      
-      document.getElementById('timer-display').textContent = 
-        `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-    } else {
-      document.getElementById('timer-display').textContent = '00:00:00';
-      document.querySelector('.urgency-bar').innerHTML = 
-        '<div class="container"><div class="urgency-content"><span class="urgency-icon">🚨</span><span class="urgency-text"><strong>Oferta encerrada!</strong> Entre em contato para saber sobre a próxima turma.</span></div></div>';
+  // Contador de vagas (diminui a cada 30 minutos)
+  let vagas = 8;
+  function atualizarVagas() {
+    if (vagas > 0) {
+      vagasElement.textContent = String(vagas);
+      vagas--;
     }
   }
-  
-  atualizarTimer();
-  setInterval(atualizarTimer, 1000);
-}
 
-// Mostrar barra após 3 segundos
-setTimeout(() => {
-  document.querySelector('.urgency-bar').classList.add('show');
-}, 3000);
+  // Timer de contagem regressiva (48 horas)
+  function iniciarTimer() {
+    const fimOferta = new Date();
+    fimOferta.setHours(fimOferta.getHours() + 48);
 
-// Atualizar vagas a cada 30 minutos
-setInterval(atualizarVagas, 30 * 60 * 1000);
+    function atualizarTimer() {
+      const agora = new Date();
+      const diferenca = fimOferta - agora;
 
-// Fechar barra
-document.querySelector('.urgency-close').addEventListener('click', function() {
-  document.querySelector('.urgency-bar').style.transform = 'translateY(-100%)';
-  // Reaparece após 5 minutos
+      if (diferenca > 0) {
+        const horas = Math.floor(diferenca / (1000 * 60 * 60));
+        const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+        timerDisplay.textContent =
+          `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+      } else {
+        timerDisplay.textContent = '00:00:00';
+        bar.innerHTML =
+          '<div class="container"><div class="urgency-content"><span class="urgency-icon">🚨</span><span class="urgency-text"><strong>Oferta encerrada!</strong> Entre em contato para saber sobre a próxima turma.</span></div></div>';
+      }
+    }
+
+    atualizarTimer();
+    setInterval(atualizarTimer, 1000);
+  }
+
+  // Mostrar barra após 3 segundos
   setTimeout(() => {
-    document.querySelector('.urgency-bar').classList.add('show');
-    document.querySelector('.urgency-bar').style.transform = 'translateY(0)';
-  }, 5 * 60 * 1000);
-});
+    bar.classList.add('show');
+  }, 3000);
 
-// Inicializar
-iniciarTimer();
-atualizarVagas();
+  // Atualizar vagas a cada 30 minutos
+  setInterval(atualizarVagas, 30 * 60 * 1000);
+
+  // Fechar barra e reabrir depois
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      bar.style.transform = 'translateY(-100%)';
+      setTimeout(() => {
+        bar.classList.add('show');
+        bar.style.transform = 'translateY(0)';
+      }, 5 * 60 * 1000);
+    });
+  }
+
+  // Inicializar agora
+  iniciarTimer();
+  atualizarVagas();
+});
 </script>
 
 <!-- JAVASCRIPT PARA PROVA SOCIAL -->
 <script>
-const nomesAlunas = [
-  'Carolina M.', 'Fernanda S.', 'Juliana R.', 'Mariana C.', 'Beatriz L.',
-  'Ana Paula T.', 'Camila F.', 'Larissa G.', 'Vanessa B.', 'Patrícia D.',
-  'Renata K.', 'Sabrina O.', 'Tatiana E.', 'Valéria N.', 'Wanda P.'
-];
-
-const frases = [
-  'acabou de entrar no Método C.A.L.M.A.',
-  'garantiu sua vaga no Método C.A.L.M.A.',
-  'começou sua transformação com o C.A.L.M.A.',
-  'se inscreveu no Método C.A.L.M.A.',
-  'acessou o Robô C.A.L.M.A. pela primeira vez'
-];
-
-function mostrarNotificacao() {
+document.addEventListener('DOMContentLoaded', () => {
   const notification = document.getElementById('socialProof');
-  const nomeAleatorio = nomesAlunas[Math.floor(Math.random() * nomesAlunas.length)];
-  const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
-  const tempoAleatorio = Math.floor(Math.random() * 5) + 1; // 1 a 5 minutos
-  
-  // Configurar conteúdo
-  document.getElementById('notification-name').textContent = nomeAleatorio;
-  document.querySelector('.notification-text strong:last-child').textContent = fraseAleatoria;
-  document.getElementById('notification-time').textContent = `há ${tempoAleatorio} minutos`;
-  
-  // Mostrar notificação
-  notification.style.display = 'block';
-  setTimeout(() => {
-    notification.classList.add('show');
-  }, 100);
-  
-  // Esconder após 8 segundos
-  setTimeout(() => {
-    notification.classList.remove('show');
-    setTimeout(() => {
-      notification.style.display = 'none';
-    }, 300);
-  }, 8000);
-  
-  // Fechar manualmente
-  document.querySelector('.notification-close').onclick = function() {
-    notification.classList.remove('show');
-    setTimeout(() => {
-      notification.style.display = 'none';
-    }, 300);
-  };
-}
+  const nameEl = document.getElementById('notification-name');
+  const timeEl = document.getElementById('notification-time');
+  const closeEl = document.querySelector('.notification-close');
+  const lastStrong = document.querySelector('.notification-text strong:last-child');
 
-// Mostrar primeira notificação após 10 segundos
-setTimeout(mostrarNotificacao, 10000);
+  if (!notification || !nameEl || !timeEl || !lastStrong) return;
 
-// Depois mostrar a cada 2-4 minutos
-setInterval(() => {
-  const delayAleatorio = (Math.random() * 2 + 2) * 60 * 1000; // 2-4 minutos
-  setTimeout(mostrarNotificacao, delayAleatorio);
-}, 120000); // primeira após 2 minutos
+  const nomesAlunas = [
+    'Carolina M.', 'Fernanda S.', 'Juliana R.', 'Mariana C.', 'Beatriz L.',
+    'Ana Paula T.', 'Camila F.', 'Larissa G.', 'Vanessa B.', 'Patrícia D.',
+    'Renata K.', 'Sabrina O.', 'Tatiana E.', 'Valéria N.', 'Wanda P.'
+  ];
+  const frases = [
+    'acabou de entrar no Método C.A.L.M.A.',
+    'garantiu sua vaga no Método C.A.L.M.A.',
+    'começou sua transformação com o C.A.L.M.A.',
+    'se inscreveu no Método C.A.L.M.A.',
+    'acessou o Robô C.A.L.M.A. pela primeira vez'
+  ];
+
+  function mostrarNotificacao() {
+    const nomeAleatorio = nomesAlunas[Math.floor(Math.random() * nomesAlunas.length)];
+    const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+    const tempoAleatorio = Math.floor(Math.random() * 5) + 1; // 1 a 5 minutos
+
+    nameEl.textContent = nomeAleatorio;
+    lastStrong.textContent = fraseAleatoria;
+    timeEl.textContent = `há ${tempoAleatorio} minutos`;
+
+    notification.style.display = 'block';
+    requestAnimationFrame(() => notification.classList.add('show'));
+
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 300);
+    }, 8000);
+  }
+
+  if (closeEl) {
+    closeEl.addEventListener('click', () => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 300);
+    });
+  }
+
+  // primeira notificação após 10s
+  setTimeout(mostrarNotificacao, 10000);
+
+  // a cada 2–4 minutos
+  setInterval(() => {
+    const delayAleatorio = (Math.random() * 2 + 2) * 60 * 1000; // 2-4 min
+    setTimeout(mostrarNotificacao, delayAleatorio);
+  }, 120000);
+});
 </script>
 
 <!-- POP-UP DE SAÍDA -->
@@ -2307,7 +2312,7 @@ setInterval(() => {
         ✅ Quero Meu Desconto Agora
       </a>
       
-      <button class="exit-decline" style="background: none; border: 1px solid #D1D5DB; color: #374151; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 12px;">
+      <button class="exit-decline" aria-label="Fechar a oferta e continuar navegando" style="background: none; border: 1px solid #D1D5DB; color: #374151; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 12px;">
         Não, obrigado
       </button>
     </div>
@@ -2320,5 +2325,87 @@ setInterval(() => {
   </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const popup = document.getElementById('exitPopup');
+  const closeBtn = document.querySelector('.exit-close');
+  const declineBtn = document.querySelector('.exit-decline');
+
+  if (!popup) return;
+
+  let popupShown = sessionStorage.getItem('popupShown') === '1';
+
+  const openPopup = () => {
+    if (popupShown) return;
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('show'));
+    popupShown = true;
+    sessionStorage.setItem('popupShown', '1');
+    const cta = popup.querySelector('.exit-cta');
+    cta && cta.focus();
+  };
+
+  const closePopup = () => {
+    popup.classList.remove('show');
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 250);
+  };
+
+  // fechar por botões
+  closeBtn?.addEventListener('click', closePopup);
+  declineBtn?.addEventListener('click', closePopup);
+
+  // fechar clicando fora
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) closePopup();
+  });
+
+  // fechar por ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup.style.display === 'flex') closePopup();
+  });
+
+  // ===== Ative APENAS 1 gatilho abaixo (ou 2 no máximo). =====
+
+    // Gatilho A — Exit-Intent (quando o mouse sai pelo topo, desktop):
+  const hasMouse = window.matchMedia && matchMedia('(pointer:fine)').matches;
+  const onMouseOutTop = (e) => {
+    // dispara só se o cursor sair pela parte de cima da janela
+    if (e.clientY <= 0) {
+      openPopup();
+      window.removeEventListener('mouseout', onMouseOutTop);
+    }
+  };
+  if (hasMouse) {
+    window.addEventListener('mouseout', onMouseOutTop);
+  }
+
+  // Gatilho B — Inatividade (45s sem mexer):
+  //let inactivityTimer = null;
+  //const resetInactivity = () => {
+    //clearTimeout(inactivityTimer);
+    //inactivityTimer = setTimeout(openPopup, 45000);
+  //};
+  //['mousemove','keydown','scroll','touchstart'].forEach(evt => {
+    window.addEventListener(evt, resetInactivity, { passive: true });
+  //});
+  //resetInactivity();
+
+  // Gatilho C — Profundidade de scroll (60% da página):
+  //const onScrollDepth = () => {
+    //const h = document.documentElement;
+    //const scrolled = (h.scrollTop + h.clientHeight) / h.scrollHeight;
+    //if (scrolled >= 0.6) {
+      //openPopup();
+      //window.removeEventListener('scroll', onScrollDepth);
+    }
+  };
+  window.addEventListener('scroll', onScrollDepth, { passive: true });
+
+  // (Opcional, para teste manual): abrir depois de 30s
+  // setTimeout(openPopup, 30000);
+});
+</script>
 </body>
 </html>
