@@ -822,42 +822,68 @@ img {
 }
 
 
+/* ========================================
+   BARRA DE URGÊNCIA - MOBILE
+   ======================================== */
+
 @media (max-width: 768px) {
   body {
-    padding-top: 50px;  /* barra menor no celular */
+    padding-top: 45px;  /* barra menor no celular */
   }
   
   .urgency-bar {
-    font-size: 0.75rem;  /* texto menor */
+    font-size: 0.7rem;  /* texto bem menor */
   }
   
   .urgency-content {
-    flex-wrap: wrap;
-    gap: 0.3rem;
+    flex-direction: column;  /* empilha tudo verticalmente */
+    gap: 0.4rem;
     text-align: center;
-    padding: 8px 12px;  /* menos espaço */
+    padding: 6px 12px;
     justify-content: center;
     align-items: center;
   }
   
+  .urgency-icon {
+    font-size: 0.9rem;
+    margin-right: 0;
+  }
+  
   .urgency-text {
-    font-size: 0.7rem;  /* texto menor */
-    flex: 1 1 100%;
+    font-size: 0.7rem;
+    flex: 1 1 auto;
+    white-space: normal;  /* PERMITE quebrar linha */
+    line-height: 1.3;
   }
   
   .urgency-text strong {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  #vagas-count {
+    font-size: 0.9rem;
   }
   
   .urgency-timer {
-    font-size: 0.65rem;  /* timer menor */
+    font-size: 0.65rem;
     padding: 2px 4px;
+    white-space: nowrap;  /* timer não quebra */
   }
   
   .urgency-close {
-    font-size: 1.1rem;  /* X menor */
+    font-size: 1.1rem;
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    padding: 0;
+  }
+  
+  .urgency-content {
+    position: relative;
+    padding-right: 30px;  /* espaço pro X */
   }
 }
+
 
 
 .urgency-icon {
